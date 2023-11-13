@@ -15,7 +15,7 @@ public class Player extends Character{
     private int CalculateXPTillLvl(int lvl){
         double XPConst1 = 0.3;
         double XPConst2 = 2.0;
-        return (int) ((lvl/ XPConst1) * XPConst2) + lvl * 4;
+        return (int) ((lvl/ XPConst1) * XPConst2) + this.getTotalXP();
     }
     private void levelUp(){
         this.setLvl(this.getLvl() + 1);
@@ -34,7 +34,16 @@ public class Player extends Character{
             levelUp();
             System.out.println("PLAYER LEVELED UP!! he is now level " + this.getLvl());
             this.XPTillLvl = CalculateXPTillLvl(this.getLvl() + 1);
+            updateStats();
         }
+    }
+
+    public void updateStats(){
+        this.setMaxHP((int) (this.getHp() * (1.25)));
+        this.setMaxMP((int) (this.getMaxMP() * (1.25)));
+        this.setStr(this.getStr() + 1);
+        this.setDef(this.getDef() + 1);
+
     }
 
     public void updateTotalXP(int value){

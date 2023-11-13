@@ -1,12 +1,15 @@
 package Classes;
 
 import Classes.Entity.Character;
+import Classes.Entity.Enemy;
 import Classes.Entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
+
+import static java.lang.Math.max;
 
 public class Game {
     private final HashMap<String, Move> movesTable;
@@ -74,17 +77,17 @@ public class Game {
 
         return new Player("jack", 80, 20, 10, 10, 20, moves);
     }
-    private Character initEasyEnemy(){
+    private Enemy initEasyEnemy(){
         ArrayList<Move> moves = new ArrayList<>();
 
         moves.add(this.movesTable.get("Bite"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Character("wil", 25, 10, 5, 4, 5, moves);
+        return new Enemy("wil", 25, 10, 5, 4, 5, moves, 5);
 
     }
 
-    private Character initHardEnemy(){
+    private Enemy initHardEnemy(){
         ArrayList<Move> moves = new ArrayList<>();
 
         moves.add(this.movesTable.get("Punch"));
@@ -92,11 +95,11 @@ public class Game {
         moves.add(this.movesTable.get("Slap"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Character("wil2", 50, 10, 5, 4, 5, moves);
+        return new Enemy("wil2", 50, 10, 5, 4, 5, moves, 10);
 
     }
 
-    private void battle(Player player, Character enemy, Scanner inputScanner, Random random){
+    private void battle(Player player, Enemy enemy, Scanner inputScanner, Random random){
         int turnCounter = 1, choice = 0;
 
         System.out.println(player.getName() + " vs " + enemy.getName());
@@ -127,16 +130,19 @@ public class Game {
             int result = checkIfBattleStatus(player, enemy);
 
             if(result == 1){
+                int xpGained = enemy.getXpValue();
+
                 System.out.printf("Battle is over! %s won!\n", player.getName());
-                player.updateTotalXP(10);
-                System.out.printf("%s gained 10 xp! he needs %d more xp to reach level %d\n", player.getName(),player.getXPTillLvl() - player.getTotalXP(), player.getLvl()+ 1);
+                player.updateTotalXP(enemy.getXpValue());
+                System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained, player.getXPTillLvl() - player.getTotalXP(), player.getLvl()+ 1);
                 player.restore();
                 break;
             }
             else if(result == 2){
+                int xpGained = max(enemy.getXpValue()/2, 1);
                 System.out.printf("Battle is over! %s lost!\n", player.getName());
-                player.updateTotalXP(5);
-                System.out.printf("%s gained 5 xp! he needs %d more xp to reach level %d\n", player.getName(),player.getXPTillLvl() - player.getTotalXP(), player.getLvl()+ 1);
+                player.updateTotalXP(xpGained);
+                System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained, player.getXPTillLvl() - player.getTotalXP() , player.getLvl()+ 1);
                 player.restore();
                 break;
             }
@@ -171,7 +177,8 @@ public class Game {
                 System.out.print("\n\n");
                 System.out.println("1. Battle (easy)");
                 System.out.println("2. Battle (hard)");
-                System.out.println("3. main menu");
+                System.out.println("3. Current stats");
+                System.out.println("4. main menu");
                 System.out.print("\n\n");
                 try {
 
@@ -190,6 +197,18 @@ public class Game {
                             validChoice = true;
                             break;
                         case 3:
+                            System.out.println("\n\nPlayer name : " + player.getName());
+                            System.out.println("Player hp : " + player.getHp() + "/" + player.getMaxHP());
+                            System.out.println("Player mp : " + player.getMp() + "/" + player.getMaxMP());
+                            System.out.println("Player str : " + player.getStr());
+                            System.out.println("Player def : " + player.getDef());
+                            System.out.println("Player speed : " + player.getSpeed());
+                            System.out.println("Player level : " + player.getLvl());
+                            System.out.println("Player total xp : " + player.getTotalXP());
+                            System.out.println("Player xp till next level : " + player.getXPTillLvl());
+
+                            break;
+                        case 4:
                             return;
                         default:
                             System.out.println("Invalid choice, please try again!");

@@ -25,7 +25,7 @@ public class Game {
         while(true){
             do {
                 System.out.flush();
-                System.out.print("Welcome to the game!");
+                System.out.print("Welcome to the Rogue Realms!");
                 System.out.print("\n\n");
 
                 System.out.println("1. Start game");

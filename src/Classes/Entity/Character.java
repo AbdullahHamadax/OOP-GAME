@@ -115,7 +115,7 @@ public class Character {
     public void updateMp(int value){
         setMp(this.mp + value);
     }
-    public void use(Character target, Move move){
-        move.use(this, target);
+    public int use(Character target, Move move){
+        return move.use(this, target);
     }
 }

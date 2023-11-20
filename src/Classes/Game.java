@@ -17,55 +17,33 @@ public class Game {
     public Game(){
         movesTable = new HashMap<>();
     }
-    public void initilize(Scanner sc) {
-        int choice = 0;
-        boolean validChoice = false;
-
+    public void initialize(Scanner sc) {
+        int choice;
+        String[] options = new String[]{"Start game", "Exit"};
 
         while(true){
-            do {
                 System.out.flush();
-                System.out.print("Welcome to the Rogue Realms!");
-                System.out.print("\n\n");
+                System.out.print("Welcome to the game!");
 
-                System.out.println("1. Start game");
-                System.out.println("2. Exit");
-                System.out.print("\n\n");
-                try {
+                choice = optionsMenu(options, sc);
 
-                    System.out.print("Choice : ");
-                    choice = sc.nextInt();
-
-                    switch (choice) {
-                        case 1:
-                            startGame(sc);
-                            validChoice = true;
-                            break;
-                        case 2:
-                            System.exit(0);
-                            validChoice = true;
-                            break;
-                        default:
-                            System.out.println("Invalid choice, please try again!");
-                            break;
-                    }
-                } catch (java.util.InputMismatchException e) {
-                    System.out.println("Invalid input. please try again.");
-                    sc.next();
+                switch (choice) {
+                    case 1:
+                        startGame(sc);
+                        break;
+                    case 2:
+                        System.exit(0);
+                        break;
                 }
-            } while (!validChoice);
         }
-
     }
 
-    void initMovesTable(){
-
+    private void initMovesTable(){
         this.movesTable.put("Punch", new Move("Punch", 5, 0, 0, 90));
         this.movesTable.put("Kick", new Move("Kick", 7, 0, 1, 75));
         this.movesTable.put("Slap", new Move("Slap", 3, 0, 2, 100));
         this.movesTable.put("Scratch", new Move("Scratch", 3, 0, 0, 95));
         this.movesTable.put("Bite", new Move("Bite", 2, 0, 3, 65));
-
     }
 
     private Player initPlayer(){
@@ -77,49 +55,113 @@ public class Game {
 
         return new Player("jack", 80, 20, 10, 10, 20, moves);
     }
-    private Enemy initEasyEnemy(){
+    private Enemy initEasyEnemy(int playerLvl){
         ArrayList<Move> moves = new ArrayList<>();
+        double lvlMultiplier = playerLvl * 0.15 + 1;
 
         moves.add(this.movesTable.get("Bite"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Enemy("wil", 25, 10, 5, 4, 5, moves, 5);
+        return new Enemy("wil", (int)(25 * lvlMultiplier), (int)(10 * lvlMultiplier),
+                (int)(5 * lvlMultiplier), (int)(5 * lvlMultiplier), (int)(5 * lvlMultiplier), moves, (int)(5 * lvlMultiplier));
 
     }
 
-    private Enemy initHardEnemy(){
+    private Enemy initHardEnemy(int playerLvl){
         ArrayList<Move> moves = new ArrayList<>();
+        double lvlMultiplier = playerLvl * 0.15 + 1;
 
         moves.add(this.movesTable.get("Punch"));
         moves.add(this.movesTable.get("Kick"));
         moves.add(this.movesTable.get("Slap"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Enemy("wil2", 50, 10, 5, 4, 5, moves, 10);
+        return new Enemy("wil2", (int)(50 * lvlMultiplier), (int)(10 * lvlMultiplier), (int)(10 * lvlMultiplier),
+                (int)(10 * lvlMultiplier), (int)(8 * lvlMultiplier), moves, (int)(15 * lvlMultiplier));
 
+    }
+
+    private int optionsMenu(String[] options, Scanner sc){
+        int choice = 0, n = options.length;
+        boolean valid = false;
+
+        System.out.println();
+
+        for(int i = 0; i < n; i++)
+            System.out.println((i+1) + ". " + options[i]);
+
+
+        while(!valid){
+            System.out.print("\nChoice : ");
+            try{
+                choice = sc.nextInt();
+
+                if(choice > 0 && choice <= n)
+                    valid = true;
+
+                else{
+//                    System.out.print("\033[F\033[K");
+                    System.out.printf("Invalid choice! Please enter a number between 1 and %d!\n", n);
+
+
+                }
+            }
+            catch (Exception e){
+//                System.out.print("\033[F\033[K");
+                System.out.println("Invalid input! Please enter a numbers only!");
+                sc.next();
+
+            }
+        }
+        return choice;
     }
 
     private void battle(Player player, Enemy enemy, Scanner inputScanner, Random random){
         int turnCounter = 1, choice = 0;
+        String[] playerActions = new String[]{"Fight", "Observe"};
 
         System.out.println(player.getName() + " vs " + enemy.getName());
 
         while(true){
-            System.out.println("It is now turn " + turnCounter);
+            System.out.println("\n\nIt is now turn " + turnCounter);
 
             if(turnCounter % 2 != 0){
                 System.out.println("It is " + player.getName() + "'s turn!");
-                System.out.println("Moves list : ");
-                for(int i = 0; i < player.moves.size(); i++){
-                    String name = player.moves.get(i).getName();
-                    System.out.printf("%d. %s\n", i+1, name);
-                }
-                System.out.print("Choice : ");
+                System.out.println("Choose action : ");
+                choice = optionsMenu(playerActions, inputScanner);
 
-                choice = inputScanner.nextInt() - 1;
-                System.out.printf("%s chose to use %s\n", player.getName(), player.moves.get(choice).getName());
-                player.use(enemy, player.moves.get(choice));
+                switch (choice)
+                {
+                    case 1:
+                        String[] moveNames = new String[player.moves.size()];
+                        for(int i = 0; i < player.moves.size(); i++)
+                            moveNames[i] = player.moves.get(i).getName();
+
+                        System.out.println("Moves list : ");
+
+                        choice = optionsMenu(moveNames, inputScanner) - 1;
+                        System.out.printf("%s chose to use %s\n", player.getName(), player.moves.get(choice).getName());
+                        player.use(enemy, player.moves.get(choice));
+                        break;
+                    case 2:
+                        String[] options = new String[]{"Current stats", enemy.getName() + "'s stats"};
+                        choice = optionsMenu(options, inputScanner);
+
+                        switch (choice){
+                            case 1:
+                                
+                                break;
+                            case 2:
+                                break;
+                        }
+
+
+                        System.out.println("SOON");
+                        break;
+
+                }
             }
+
             else{
                 System.out.println("It is " + enemy.getName() + "'s turn!");
                 choice = random.nextInt(enemy.moves.size());
@@ -135,7 +177,6 @@ public class Game {
                 System.out.printf("Battle is over! %s won!\n", player.getName());
                 player.updateTotalXP(enemy.getXpValue());
                 System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained, player.getXPTillLvl() - player.getTotalXP(), player.getLvl()+ 1);
-                player.restore();
                 break;
             }
             else if(result == 2){
@@ -162,65 +203,57 @@ public class Game {
 
         return 0;
     }
+
+    private void shop(Player player){
+
+    }
+
+    private void printStats(Player player){
+        System.out.println("\n\nPlayer name : " + player.getName());
+        System.out.println("Player hp : " + player.getHp() + "/" + player.getMaxHP());
+        System.out.println("Player mp : " + player.getMp() + "/" + player.getMaxMP());
+        System.out.println("Player str : " + player.getStr());
+        System.out.println("Player def : " + player.getDef());
+        System.out.println("Player speed : " + player.getSpeed());
+        System.out.println("Player level : " + player.getLvl());
+        System.out.println("Player total xp : " + player.getTotalXP());
+        System.out.println("Player xp till next level : " + player.getXPTillLvl());
+
+
+    }
+
     private void startGame(Scanner sc){
-        boolean validChoice = false;
-        int choice = 0;
+        int choice;
+        String[] Options = new String[]{"Battle (easy)", "Battle (hard)", "shop", "Current stats", "Main menu"};
         Random random = new Random(System.currentTimeMillis());
 
         initMovesTable();
         Player player = initPlayer();
 
-
         while(true){
-            do {
-                System.out.flush();
-                System.out.print("\n\n");
-                System.out.println("1. Battle (easy)");
-                System.out.println("2. Battle (hard)");
-                System.out.println("3. Current stats");
-                System.out.println("4. main menu");
-                System.out.print("\n\n");
-                try {
+            System.out.flush();
 
-                    System.out.print("Choice : ");
-                    choice = sc.nextInt();
+            System.out.println("Choose an option :");
 
-                    switch (choice) {
-                        case 1:
-                            battle(player, this.initEasyEnemy(), sc, random);
-                            player.restore();
-                            validChoice = true;
-                            break;
-                        case 2:
-                            battle(player, this.initHardEnemy(), sc, random);
-                            player.restore();
-                            validChoice = true;
-                            break;
-                        case 3:
-                            System.out.println("\n\nPlayer name : " + player.getName());
-                            System.out.println("Player hp : " + player.getHp() + "/" + player.getMaxHP());
-                            System.out.println("Player mp : " + player.getMp() + "/" + player.getMaxMP());
-                            System.out.println("Player str : " + player.getStr());
-                            System.out.println("Player def : " + player.getDef());
-                            System.out.println("Player speed : " + player.getSpeed());
-                            System.out.println("Player level : " + player.getLvl());
-                            System.out.println("Player total xp : " + player.getTotalXP());
-                            System.out.println("Player xp till next level : " + player.getXPTillLvl());
+            choice = optionsMenu(Options, sc);
 
-                            break;
-                        case 4:
-                            return;
-                        default:
-                            System.out.println("Invalid choice, please try again!");
-                            break;
-                    }
-                } catch (java.util.InputMismatchException e) {
-                    System.out.println("Invalid input. please try again.");
-                    sc.next();
-                }
-            } while (!validChoice);
+            switch (choice) {
+                case 1:
+                    battle(player, this.initEasyEnemy(player.getLvl()), sc, random);
+                    break;
+                case 2:
+                    battle(player, this.initHardEnemy(player.getLvl()), sc, random);
+                    break;
+                case 3:
+                    shop(player);
+                    break;
+                case 4:
+                    printStats(player);
+                    break;
+                case 5:
+                    return;
+            }
+
         }
-
-
     }
 }

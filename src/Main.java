@@ -1,10 +1,6 @@
-import Classes.Entity.Character;
 import Classes.Game;
-import Classes.Move;
-import Classes.Entity.Player;
 
 import java.util.*;
-import java.util.random.RandomGenerator;
 
 public class Main {
 
@@ -62,7 +58,7 @@ public class Main {
         Game game = new Game();
         Scanner sc = new Scanner(System.in);
 
-        game.initilize(sc);
+        game.initialize(sc);
 
 
     }

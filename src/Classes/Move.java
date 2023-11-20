@@ -26,8 +26,14 @@ public class Move {
         return name;
     }
 
-    public void use(Character user, Character target){
+    public int use(Character user, Character target){
         int damage = (int)(((double) user.getStr() / 10) * power) + 1;
+        double randomValue = Math.random();
+        if(randomValue >= (double)accuracy/ 100)
+            return 0;
+
+
         target.updateHp(damage * -1);
+        return 1;
     }
 }

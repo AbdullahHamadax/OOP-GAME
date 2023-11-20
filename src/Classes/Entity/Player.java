@@ -35,11 +35,12 @@ public class Player extends Character{
             System.out.println("PLAYER LEVELED UP!! he is now level " + this.getLvl());
             this.XPTillLvl = CalculateXPTillLvl(this.getLvl() + 1);
             updateStats();
+            this.restore();
         }
     }
 
     public void updateStats(){
-        this.setMaxHP((int) (this.getHp() * (1.25)));
+        this.setMaxHP((int) (this.getMaxHP() * (1.25)));
         this.setMaxMP((int) (this.getMaxMP() * (1.25)));
         this.setStr(this.getStr() + 1);
         this.setDef(this.getDef() + 1);

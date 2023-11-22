@@ -3,7 +3,6 @@ package Classes;
 import Classes.Entity.Character;
 import Classes.Entity.Enemy;
 import Classes.Entity.Player;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -13,6 +12,35 @@ import static java.lang.Math.max;
 
 public class Game {
     private final HashMap<String, Move> movesTable;
+    private final ArrayList<Item> items;
+    enum Color{
+        RED("\u001B[31m"),
+        RESET("\u001B[0m"),
+        GREEN("\u001B[32m"),
+        WHITE("\u001B[37m"),
+        YELLOW( "\u001B[33m"),
+        CYAN("\u001B[36m"),
+        MAGENTA("\u001B[35m"),
+        BLUE("\u001B[34m"),
+        BLACK("\u001B[30m");
+
+        private String color;
+
+        public String getColor() {
+            return color;
+        }
+
+        private Color(String s) {
+            this.color=s;
+        }
+    }
+
+    private void clearTerminal(){
+        for(int i =0 ; i < 20;i++){
+            System.out.println();
+        }
+    }
+
 
     public Game(){
         movesTable = new HashMap<>();
@@ -22,19 +50,19 @@ public class Game {
         String[] options = new String[]{"Start game", "Exit"};
 
         while(true){
-                System.out.flush();
-                System.out.print("Welcome to the game!");
+            System.out.flush();
+            System.out.print("Welcome to the game!");
 
-                choice = optionsMenu(options, sc);
+            choice = optionsMenu(options, sc);
 
-                switch (choice) {
-                    case 1:
-                        startGame(sc);
-                        break;
-                    case 2:
-                        System.exit(0);
-                        break;
+            switch (choice) {
+                case 1 -> startGame(sc);
+                case 2 -> {
+                    clearTerminal();
+                    System.out.print(Color.RED.getColor()+"As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer");
+                    System.exit(0);
                 }
+            }
         }
     }
 
@@ -44,6 +72,9 @@ public class Game {
         this.movesTable.put("Slap", new Move("Slap", 3, 0, 2, 100));
         this.movesTable.put("Scratch", new Move("Scratch", 3, 0, 0, 95));
         this.movesTable.put("Bite", new Move("Bite", 2, 0, 3, 65));
+    }
+    private void initItems(ArrayList<Item> items){
+
     }
 
     private Player initPlayer(){
@@ -130,35 +161,27 @@ public class Game {
                 System.out.println("Choose action : ");
                 choice = optionsMenu(playerActions, inputScanner);
 
-                switch (choice)
-                {
-                    case 1:
+                switch (choice) {
+                    case 1 -> {
                         String[] moveNames = new String[player.moves.size()];
-                        for(int i = 0; i < player.moves.size(); i++)
+                        for (int i = 0; i < player.moves.size(); i++)
                             moveNames[i] = player.moves.get(i).getName();
-
                         System.out.println("Moves list : ");
-
                         choice = optionsMenu(moveNames, inputScanner) - 1;
                         System.out.printf("%s chose to use %s\n", player.getName(), player.moves.get(choice).getName());
                         player.use(enemy, player.moves.get(choice));
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         String[] options = new String[]{"Current stats", enemy.getName() + "'s stats"};
                         choice = optionsMenu(options, inputScanner);
-
-                        switch (choice){
-                            case 1:
-                                
-                                break;
-                            case 2:
-                                break;
+                        switch (choice) {
+                            case 1 -> {
+                            }
+                            case 2 -> {
+                            }
                         }
-
-
                         System.out.println("SOON");
-                        break;
-
+                    }
                 }
             }
 
@@ -238,20 +261,13 @@ public class Game {
             choice = optionsMenu(Options, sc);
 
             switch (choice) {
-                case 1:
-                    battle(player, this.initEasyEnemy(player.getLvl()), sc, random);
-                    break;
-                case 2:
-                    battle(player, this.initHardEnemy(player.getLvl()), sc, random);
-                    break;
-                case 3:
-                    shop(player);
-                    break;
-                case 4:
-                    printStats(player);
-                    break;
-                case 5:
+                case 1 -> battle(player, this.initEasyEnemy(player.getLvl()), sc, random);
+                case 2 -> battle(player, this.initHardEnemy(player.getLvl()), sc, random);
+                case 3 -> shop(player);
+                case 4 -> printStats(player);
+                case 5 -> {
                     return;
+                }
             }
 
         }

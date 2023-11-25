@@ -7,13 +7,15 @@ import java.util.HashMap;
 
 public class Character {
     public ArrayList<Move> moves;
+    public ArrayList<Items> items ;
     private String name;
     private int maxHP, maxMP;
     private int hp, mp;
     private int str, def, speed;
     private int lvl;
+    private int battleStr , battleDef ,battleSpeed ;
 
-    public Character(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves) {
+    public Character(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves , int battleStr , int battleSpeed , int battleDef ) {
         this.name = name;
         this.maxHP = maxHP;
         this.maxMP = maxMP;
@@ -24,6 +26,9 @@ public class Character {
         this.speed = speed;
         this.lvl = 1;
         this.moves = moves;
+        this.battleDef = battleDef ;
+        this.battleStr = battleStr ;
+        this.battleSpeed = battleSpeed ;
     }
 
     public void setSpeed(int speed) {
@@ -59,6 +64,30 @@ public class Character {
 
     public int getHp() {
         return hp;
+    }
+
+    public int getBattleStr() {
+        return battleStr;
+    }
+
+    public void setBattleStr(int battleStr) {
+        this.battleStr = battleStr;
+    }
+
+    public int getBattleDef() {
+        return battleDef;
+    }
+
+    public void setBattleDef(int battleDef) {
+        this.battleDef = battleDef;
+    }
+
+    public int getBattleSpeed() {
+        return battleSpeed;
+    }
+
+    public void setBattleSpeed(int battleSpeed) {
+        this.battleSpeed = battleSpeed;
     }
 
     public void setHp(int hp) {
@@ -113,9 +142,41 @@ public class Character {
 
     }
     public void updateMp(int value){
+
         setMp(this.mp + value);
     }
     public int use(Character target, Move move){
+
         return move.use(this, target);
+    }
+    public int use(Character target ,Items item)
+    {
+        item.use(this) ;
+        items.remove(item) ;
+        return 0 ;
+    }
+    public void updateStr(int value)
+    {
+        setStr(this.str + value) ;
+    }
+    public void updateSPD(int value)
+    {
+        setSpeed(this.speed + value) ;
+    }
+    public void updateDef(int value)
+    {
+        setDef(this.def + value) ;
+    }
+    public void updatBattleStr(int value)
+    {
+        setBattleStr(this.battleStr + value) ;
+    }
+    public void updatebattlrDef(int value)
+    {
+        setBattleDef(this.battleDef + value) ;
+    }
+    public  void updateBattleSpeed(int value)
+    {
+        setBattleSpeed(this.battleSpeed + value) ;
     }
 }

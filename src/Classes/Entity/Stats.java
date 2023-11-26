@@ -1,6 +1,6 @@
 package Classes.Entity;
 
-public class Stats {
+public class Stats{
     public int str, def, magicStr, magicDef, speed, Maxhp, Maxmp, hp, mp;
 
     public Stats(int str, int def, int magicStr, int magicDef, int speed, int Maxhp, int Maxmp, int hp, int mp) {
@@ -14,4 +14,6 @@ public class Stats {
         this.hp = hp;
         this.mp = mp;
     }
+
+
 }

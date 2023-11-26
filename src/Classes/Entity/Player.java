@@ -1,5 +1,6 @@
 package Classes.Entity;
 
+import Classes.Item;
 import Classes.Move;
 
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ public class Player extends Character{
     }
 
     private int CalculateXPTillLvl(int lvl){
-        double XPConst1 = 0.3;
-        double XPConst2 = 2.0;
-        return (int) ((lvl/ XPConst1) * XPConst2) + this.getTotalXP();
+        final double XPCONST1 = 0.3;
+        final double XPCONST2 = 2.0;
+        return (int) ((lvl/ XPCONST1) * XPCONST2) + this.getTotalXP();
     }
     private void levelUp(){
         this.setLvl(this.getLvl() + 1);

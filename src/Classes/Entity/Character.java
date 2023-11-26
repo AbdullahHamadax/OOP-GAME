@@ -1,16 +1,19 @@
 package Classes.Entity;
 
+import Classes.Item;
 import Classes.Move;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Character {
+public abstract class Character {
     public ArrayList<Move> moves;
+    public ArrayList<Item> items;
     private String name;
     private int maxHP, maxMP;
     private int hp, mp;
     private int str, def, speed;
+    private int battleStr, battleDef, BattleSpeed;
     private int lvl;
 
     public Character(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves) {
@@ -117,5 +120,11 @@ public class Character {
     }
     public int use(Character target, Move move){
         return move.use(this, target);
+    }
+    public int use(Character target, Item item){
+        item.use(this);
+        items.remove(item);
+
+        return 0;
     }
 }

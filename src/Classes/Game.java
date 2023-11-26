@@ -166,6 +166,7 @@ public class Game {
                         String[] moveNames = new String[player.moves.size()];
                         for (int i = 0; i < player.moves.size(); i++)
                             moveNames[i] = player.moves.get(i).getName();
+
                         System.out.println("Moves list : ");
                         choice = optionsMenu(moveNames, inputScanner) - 1;
                         System.out.printf("%s chose to use %s\n", player.getName(), player.moves.get(choice).getName());

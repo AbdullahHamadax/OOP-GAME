@@ -3,6 +3,7 @@ package Classes;
 import Classes.Entity.Character;
 import Classes.Entity.Enemy;
 import Classes.Entity.Player;
+import Classes.Entity.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -11,8 +12,11 @@ import java.util.Scanner;
 import static java.lang.Math.max;
 
 public class Game {
+    private static final String WELCOME_MESSAGE = "Welcome to the game!";
+    private static final String CHOOSE_MESSAGE = "Choose an option :";
+
     private final HashMap<String, Move> movesTable;
-    private final ArrayList<Items> items;
+    private final ArrayList<Item> items;
     enum Color{
         RED("\u001B[31m"),
         RESET("\u001B[0m"),
@@ -30,33 +34,49 @@ public class Game {
             return color;
         }
 
-        private Color(String s) {
+        Color(String s) {
             this.color=s;
         }
     }
 
     private void clearTerminal(){
-        for(int i =0 ; i < 20;i++){
+        //                System.out.print("\033[F\033[K");
+        for(int i =0 ; i < 30;i++){
             System.out.println();
         }
     }
 
+    private void printTitle(String msg){
+        for(int i = 0; i < msg.length(); i++)
+            System.out.print("=");
+
+        System.out.println("\n" + msg);
+
+        for(int i = 0; i < msg.length(); i++)
+            System.out.print("=");
+
+        System.out.println();
+    }
 
     public Game(){
         movesTable = new HashMap<>();
+        items = new ArrayList<>();
     }
     public void initialize(Scanner sc) {
         int choice;
+
         String[] options = new String[]{"Start game", "Exit"};
 
         while(true){
             System.out.flush();
-            System.out.print("Welcome to the game!");
+            printTitle(WELCOME_MESSAGE);
 
             choice = optionsMenu(options, sc);
 
             switch (choice) {
-                case 1 -> startGame(sc);
+                case 1 -> {
+                    startGame(sc);
+                }
                 case 2 -> {
                     clearTerminal();
                     System.out.print(Color.RED.getColor()+"As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer");
@@ -73,7 +93,7 @@ public class Game {
         this.movesTable.put("Scratch", new Move("Scratch", 3, 0, 0, 95));
         this.movesTable.put("Bite", new Move("Bite", 2, 0, 3, 65));
     }
-    private void initItems(ArrayList<Item> items){
+    private void initItemsTable(){
 
     }
 
@@ -123,7 +143,7 @@ public class Game {
 
 
         while(!valid){
-            System.out.print("\nChoice : ");
+            System.out.printf("\nEnter an option (%d to %d) : ", 1, n);
             try{
                 choice = sc.nextInt();
 
@@ -131,14 +151,12 @@ public class Game {
                     valid = true;
 
                 else{
-//                    System.out.print("\033[F\033[K");
                     System.out.printf("Invalid choice! Please enter a number between 1 and %d!\n", n);
 
 
                 }
             }
             catch (Exception e){
-//                System.out.print("\033[F\033[K");
                 System.out.println("Invalid input! Please enter a numbers only!");
                 sc.next();
 
@@ -148,16 +166,18 @@ public class Game {
     }
 
     private void battle(Player player, Enemy enemy, Scanner inputScanner, Random random){
-        int turnCounter = 1, choice = 0;
-        String[] playerActions = new String[]{"Fight", "Observe"};
 
-        System.out.println(player.getName() + " vs " + enemy.getName());
+        clearTerminal();
+        int turnCounter = 1, battleCounter = 1, choice = 0;
+        String[] playerActions = new String[]{"Fight", "Observe", "Surrender"};
+
+        printTitle(player.getName() + " vs " + enemy.getName());
 
         while(true){
-            System.out.println("\n\nIt is now turn " + turnCounter);
+            System.out.println("\nIt is now turn " + turnCounter);
 
             if(turnCounter % 2 != 0){
-                System.out.println("It is " + player.getName() + "'s turn!");
+                System.out.println("It is your turn!");
                 System.out.println("Choose action : ");
                 choice = optionsMenu(playerActions, inputScanner);
 
@@ -233,6 +253,8 @@ public class Game {
     }
 
     private void printStats(Player player){
+
+        clearTerminal();
         System.out.println("\n\nPlayer name : " + player.getName());
         System.out.println("Player hp : " + player.getHp() + "/" + player.getMaxHP());
         System.out.println("Player mp : " + player.getMp() + "/" + player.getMaxMP());
@@ -255,9 +277,10 @@ public class Game {
         Player player = initPlayer();
 
         while(true){
+            clearTerminal();
             System.out.flush();
 
-            System.out.println("Choose an option :");
+            printTitle(CHOOSE_MESSAGE);
 
             choice = optionsMenu(Options, sc);
 

@@ -2,14 +2,13 @@ package Classes.Entity;
 
 import java.util.HashMap ;
 
-import Classes.Entity.Character ;
-public class Items
+public class Item
 {
     private String itemName ;
     private String itemDescription ;
     private int itemPrice ;
     private HashMap<String,Integer>effects ;
-    public Items(String itemname , String itemdescription , int itemprice)
+    public Item(String itemname , String itemdescription , int itemprice)
     {
         this.itemName = itemname ;
         this.itemDescription = itemdescription ;

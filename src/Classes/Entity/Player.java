@@ -1,6 +1,5 @@
 package Classes.Entity;
 
-import Classes.Item;
 import Classes.Move;
 
 import java.util.ArrayList;

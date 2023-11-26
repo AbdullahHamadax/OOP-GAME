@@ -3,11 +3,10 @@ package Classes.Entity;
 import Classes.Move;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Character {
     public ArrayList<Move> moves;
-    public ArrayList<Items> items ;
+    public ArrayList<Item> items ;
     private String name;
     private int maxHP, maxMP;
     private int hp, mp;
@@ -15,7 +14,7 @@ public class Character {
     private int lvl;
     private int battleStr , battleDef ,battleSpeed ;
 
-    public Character(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves , int battleStr , int battleSpeed , int battleDef ) {
+    public Character(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves) {
         this.name = name;
         this.maxHP = maxHP;
         this.maxMP = maxMP;
@@ -26,9 +25,9 @@ public class Character {
         this.speed = speed;
         this.lvl = 1;
         this.moves = moves;
-        this.battleDef = battleDef ;
-        this.battleStr = battleStr ;
-        this.battleSpeed = battleSpeed ;
+        this.battleDef = def ;
+        this.battleStr = str ;
+        this.battleSpeed = speed ;
     }
 
     public void setSpeed(int speed) {
@@ -149,7 +148,7 @@ public class Character {
 
         return move.use(this, target);
     }
-    public int use(Character target ,Items item)
+    public int use(Character target , Item item)
     {
         item.use(this) ;
         items.remove(item) ;
@@ -175,8 +174,14 @@ public class Character {
     {
         setBattleDef(this.battleDef + value) ;
     }
-    public  void updateBattleSpeed(int value)
+    public void updateBattleSpeed(int value)
     {
         setBattleSpeed(this.battleSpeed + value) ;
     }
+    public void enterBattleState(){
+        this.battleStr = str;
+        this.battleDef = def;
+        this.battleSpeed = speed;
+    }
+
 }

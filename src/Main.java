@@ -57,12 +57,10 @@ public class Main {
 
 
     public static void main(String[] args) {
-//        Game game = new Game();
-//        Scanner sc = new Scanner(System.in);
-//
-//        game.initialize(sc);
+        Game game = new Game();
+        Scanner sc = new Scanner(System.in);
 
-        Player player
+        game.initialize(sc);
 
     }
 }

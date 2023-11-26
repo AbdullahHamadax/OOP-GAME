@@ -12,7 +12,7 @@ import static java.lang.Math.max;
 
 public class Game {
     private final HashMap<String, Move> movesTable;
-    private final ArrayList<Item> items;
+    private final ArrayList<Items> items;
     enum Color{
         RED("\u001B[31m"),
         RESET("\u001B[0m"),

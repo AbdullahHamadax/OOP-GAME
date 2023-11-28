@@ -28,7 +28,7 @@ public class Game {
         BLUE("\u001B[34m"),
         BLACK("\u001B[30m");
 
-        private String color;
+        private final String color;
 
         public String getColor() {
             return color;
@@ -142,7 +142,7 @@ public class Game {
 
 
         while(!valid){
-            System.out.printf("\nEnter an option (%d to %d) : ", 1, n);
+            System.out.printf("\nEnter a valid option (%d to %d) : ", 1, n);
             try{
                 choice = sc.nextInt();
 
@@ -150,13 +150,13 @@ public class Game {
                     valid = true;
 
                 else{
-                    System.out.printf("Invalid choice! Please enter a number between 1 and %d!\n", n);
+                    System.err.printf("Invalid choice! Please enter a number between 1 and %d!\n", n);
 
 
                 }
             }
             catch (Exception e){
-                System.out.println("Invalid input! Please enter a numbers only!");
+                System.err.println("Invalid input! Please enter a number only!");
                 sc.next();
 
             }

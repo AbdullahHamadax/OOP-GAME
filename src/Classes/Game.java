@@ -12,7 +12,7 @@ import java.util.Scanner;
 import static java.lang.Math.max;
 
 public class Game {
-    private static final String WELCOME_MESSAGE = "Welcome to the game!";
+    private static final String WELCOME_MESSAGE = "Greetings brave adventurer!";
     private static final String CHOOSE_MESSAGE = "Choose an option :";
 
     private final HashMap<String, Move> movesTable;
@@ -78,8 +78,7 @@ public class Game {
                     startGame(sc);
                 }
                 case 2 -> {
-                    clearTerminal();
-                    System.out.print(Color.RED.getColor()+"As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer");
+                    System.out.print(Color.RED.getColor()+"As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer!");
                     System.exit(0);
                 }
             }

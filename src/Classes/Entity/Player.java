@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Player extends Character{
     private int totalXP, XPTillLvl;
+    private int currency = 0;
     public Player(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves) {
         super(name, maxHP, maxMP, str, def, speed, moves);
         this.totalXP = CalculateXPTillLvl(this.getLvl());
@@ -19,6 +20,7 @@ public class Player extends Character{
     }
     private void levelUp(){
         this.setLvl(this.getLvl() + 1);
+        this.currency += 100;
     }
 
     public int getTotalXP() {
@@ -49,5 +51,13 @@ public class Player extends Character{
 
     public void updateTotalXP(int value){
         setTotalXP(this.totalXP + value);
+    }
+
+    public int getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(int currency) {
+        this.currency = currency;
     }
 }

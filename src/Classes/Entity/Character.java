@@ -183,5 +183,9 @@ public class Character {
         this.battleDef = def;
         this.battleSpeed = speed;
     }
+    public void addItem(Item item)
+    {
+        items.add(item);
+    }
 
 }

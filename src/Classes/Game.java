@@ -17,6 +17,8 @@ public class Game {
 
     private final HashMap<String, Move> movesTable;
     private final ArrayList<Item> items;
+
+
     enum Color{
         RED("\u001B[31m"),
         RESET("\u001B[0m"),
@@ -247,8 +249,50 @@ public class Game {
         return 0;
     }
 
-    private void shop(Player player){
+    private void shop(Scanner in,Player player){
+        Item healingElixir = new Item("Healing Elixir", "Restores a moderate amount of health", 50);
+        Item vitalityDraught = new Item("Vitality Draught", "Restores a small amount of health", 30);
+        Item celestialTonic = new Item("Celestial Tonic", "Heals a substantial amount of health", 100);
+        System.out.println("First Item : Healing Elixir \n Description : Restores a moderate amount of health \n Price : 50$ \n ********************************");
+        System.out.println("Second Item : Vitality Draught \n Description : Restores a small amount of health \n Price : 30$ \n ********************************");
+        System.out.println("Third Item : Celestial Tonic \n Description : Heals a substantial amount of health \n Price : 100$ \n ********************************");
+        System.out.println("Enter Number Of Item You Need : " );
+        int x = in.nextInt();
+        switch(x) {
+            case 1:
+                if(player.getCurrency() >= 50){
+                    player.addItem(healingElixir);
+                    player.setCurrency(player.getCurrency() - 50);
+                    System.out.println("Done");
+                }
+                else{
+                    System.out.println("Sorry ,You Can Not Buy This Item Because Your Money Is Less Than His Price");
+                }
+                break;
+            case 2:
+                if(player.getCurrency() >= 30){
+                    player.addItem(vitalityDraught);
+                    player.setCurrency(player.getCurrency() - 30);
+                    System.out.println("Done");
+                }
+                else{
+                    System.out.println("Sorry ,You Can Not Buy This Item Because Your Money Is Less Than His Price");
+                }
+                break;
+            case 3:
+                if(player.getCurrency() >= 100){
+                    player.addItem(celestialTonic);
+                    player.setCurrency(player.getCurrency() - 100);
+                    System.out.println("Done");
+                }
+                else{
+                    System.out.println("Sorry ,You Can Not Buy This Item Because Your Money Is Less Than His Price");
+                }
+                break;
+            default:
+                System.out.println("Number Wrong ,Try again Choose Number 1 , 2 , 3 ");
 
+        }
     }
 
     private void printStats(Player player){

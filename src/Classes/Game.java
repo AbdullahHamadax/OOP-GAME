@@ -243,8 +243,6 @@ public class Game {
     }
 
     private void shop(Scanner in, Player player) {
-        boolean isInt=false;
-
         Item healingElixir = new Item("Healing Elixir", "Restores a moderate amount of health", 50);
         Item vitalityDraught = new Item("Vitality Draught", "Restores a small amount of health", 30);
         Item celestialTonic = new Item("Celestial Tonic", "Heals a substantial amount of health", 100);
@@ -254,7 +252,6 @@ public class Game {
         System.out.println("Choose the Item you need : ");
 
         int x = in.nextInt();
-        if(!in.hasNextInt()) System.err.println("Invalid!!");
         switch (x) {
             case 1 -> {
                 if (player.getCurrency() >= 50) {

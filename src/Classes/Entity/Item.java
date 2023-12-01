@@ -1,19 +1,18 @@
 package Classes.Entity;
 
-import java.util.HashMap ;
+import java.util.HashMap;
 
-public class Item
-{
-    private String itemName ;
-    private String itemDescription ;
-    private int itemPrice ;
-    private HashMap<String,Integer>effects ;
-    public Item(String itemname , String itemdescription , int itemprice)
-    {
-        this.itemName = itemname ;
-        this.itemDescription = itemdescription ;
-        this.itemPrice = itemprice ;
-        this.effects = new HashMap<>() ;
+public class Item {
+    private String itemName;
+    private String itemDescription;
+    private int itemPrice;
+    private HashMap<String, Integer> effects;
+
+    public Item(String itemname, String itemdescription, int itemprice) {
+        this.itemName = itemname;
+        this.itemDescription = itemdescription;
+        this.itemPrice = itemprice;
+        this.effects = new HashMap<>();
     }
 
     public String getItemName() {
@@ -48,39 +47,38 @@ public class Item
         this.itemDescription = itemDescription;
     }
 
-    public void use(Character character)
-    {
+    public void use(Character character) {
         effects.forEach((key, value) -> {
-            switch (key){
+            switch (key) {
                 case "HP":
-                    character.updateHp(value) ;
-                    break ;
+                    character.updateHp(value);
+                    break;
                 case "MP":
-                    character.updateMp(value) ;
-                    break ;
+                    character.updateMp(value);
+                    break;
                 case "STR":
                     character.updateStr(value);
-                    break ;
+                    break;
                 case "DF":
-                    character.updateDef(value) ;
-                    break ;
+                    character.updateDef(value);
+                    break;
                 case "SPD":
-                    character.setSpeed(value) ;
-                    break ;
+                    character.setSpeed(value);
+                    break;
                 case "BATTLE_STR":
-                    character.updatBattleStr(value) ;
-                    break ;
+                    character.updatBattleStr(value);
+                    break;
                 case "BATTLE_SPEED":
-                    character.setBattleSpeed(value) ;
-                    break ;
+                    character.setBattleSpeed(value);
+                    break;
                 case "BATTLE_DEF":
-                    character.setBattleDef(value) ;
-                    break ;
+                    character.setBattleDef(value);
+                    break;
 
             }
         });
 
     }
-    }
+}
 
 

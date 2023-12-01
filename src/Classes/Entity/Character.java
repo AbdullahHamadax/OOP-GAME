@@ -154,6 +154,10 @@ public class Character {
         items.remove(item) ;
         return 0 ;
     }
+    public void addItem(Item item)
+    {
+        items.add(item);
+    }
     public void updateStr(int value)
     {
         setStr(this.str + value) ;

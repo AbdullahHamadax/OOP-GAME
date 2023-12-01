@@ -130,7 +130,6 @@ public class Game {
 
         return new Enemy("wil2", (int) (50 * lvlMultiplier), (int) (10 * lvlMultiplier), (int) (10 * lvlMultiplier),
                 (int) (10 * lvlMultiplier), (int) (8 * lvlMultiplier), moves, (int) (15 * lvlMultiplier));
-
     }
 
     private int optionsMenu(String[] options, Scanner sc) {

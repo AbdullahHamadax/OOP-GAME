@@ -45,6 +45,9 @@ public class Game {
     private void clearTerminal() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+        /*for (int i = 0; i < 30; i++) {
+            System.out.println();
+        }*/
     }
 
     private void printTitle(String msg) {
@@ -78,7 +81,7 @@ public class Game {
             switch (choice) {
                 case 1 -> startGame(sc);
                 case 2 -> {
-                    System.out.print(Color.MAGENTA.getColor() + "As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer!");
+                    System.out.print(Color.MAGENTA.getColor() + "As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer!"+Color.RESET.getColor());
                     System.exit(0);
                 }
             }
@@ -138,10 +141,12 @@ public class Game {
 
         System.out.println();
 
-        for (int i = 0; i < n; i++)
-            System.out.println((i + 1) + ". " + options[i]);
 
         while (!valid) {
+            printTitle(CHOOSE_MESSAGE);
+            for (int i = 0; i < n; i++)
+                System.out.println((i + 1) + ". " + options[i]);
+
             System.out.printf("\nEnter a valid option (%d to %d) : ", 1, n);
             try {
                 choice = sc.nextInt();
@@ -151,11 +156,12 @@ public class Game {
 
                 else {
                     System.err.printf("Invalid choice! Please enter a number between 1 and %d!\n", n);
+                    System.out.println(" ");
                 }
             } catch (Exception e) {
                 System.err.println("Invalid input! Please enter a number only!");
                 System.out.println(" ");
-                sc.next();
+                sc.nextLine();
             }
         }
         return choice;
@@ -309,8 +315,6 @@ public class Game {
 
         while (true) {
             clearTerminal();
-
-            printTitle(CHOOSE_MESSAGE);
 
             choice = optionsMenu(Options, sc);
 

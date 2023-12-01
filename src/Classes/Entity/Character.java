@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class Character {
     public ArrayList<Move> moves;
-    public ArrayList<Item> items ;
+    public ArrayList<Item> items;
     private String name;
     private int maxHP, maxMP;
     private int hp, mp;
     private int str, def, speed;
     private int lvl;
-    private int battleStr , battleDef ,battleSpeed ;
+    private int battleStr, battleDef, battleSpeed;
 
     public Character(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves) {
         this.name = name;
@@ -25,14 +25,15 @@ public class Character {
         this.speed = speed;
         this.lvl = 1;
         this.moves = moves;
-        this.battleDef = def ;
-        this.battleStr = str ;
-        this.battleSpeed = speed ;
+        this.battleDef = def;
+        this.battleStr = str;
+        this.battleSpeed = speed;
     }
 
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
     public int getSpeed() {
         return speed;
     }
@@ -91,9 +92,9 @@ public class Character {
 
     public void setHp(int hp) {
         this.hp = hp;
-        if(this.hp < 0)
+        if (this.hp < 0)
             this.hp = 0;
-        else if(this.hp > this.maxHP)
+        else if (this.hp > this.maxHP)
             this.hp = maxHP;
     }
 
@@ -103,9 +104,9 @@ public class Character {
 
     public void setMp(int mp) {
         this.mp = mp;
-        if(this.mp < 0)
+        if (this.mp < 0)
             this.mp = 0;
-        else if(this.mp > this.maxMP)
+        else if (this.mp > this.maxMP)
             this.mp = maxMP;
     }
 
@@ -125,10 +126,11 @@ public class Character {
         this.def = def;
     }
 
-    public void restore(){
+    public void restore() {
         this.hp = this.maxHP;
         this.mp = this.maxMP;
     }
+
     public int getLvl() {
         return lvl;
     }
@@ -136,55 +138,59 @@ public class Character {
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }
-    public void updateHp(int value){
+
+    public void updateHp(int value) {
         setHp(this.hp + value);
 
     }
-    public void updateMp(int value){
+
+    public void updateMp(int value) {
 
         setMp(this.mp + value);
     }
-    public int use(Character target, Move move){
+
+    public int use(Character target, Move move) {
 
         return move.use(this, target);
     }
-    public int use(Character target , Item item)
-    {
-        item.use(this) ;
-        items.remove(item) ;
-        return 0 ;
+
+    public int use(Character target, Item item) {
+        item.use(this);
+        items.remove(item);
+        return 0;
     }
-    public void updateStr(int value)
-    {
-        setStr(this.str + value) ;
+
+    public void updateStr(int value) {
+        setStr(this.str + value);
     }
-    public void updateSPD(int value)
-    {
-        setSpeed(this.speed + value) ;
+
+    public void updateSPD(int value) {
+        setSpeed(this.speed + value);
     }
-    public void updateDef(int value)
-    {
-        setDef(this.def + value) ;
+
+    public void updateDef(int value) {
+        setDef(this.def + value);
     }
-    public void updatBattleStr(int value)
-    {
-        setBattleStr(this.battleStr + value) ;
+
+    public void updatBattleStr(int value) {
+        setBattleStr(this.battleStr + value);
     }
-    public void updatebattlrDef(int value)
-    {
-        setBattleDef(this.battleDef + value) ;
+
+    public void updatebattlrDef(int value) {
+        setBattleDef(this.battleDef + value);
     }
-    public void updateBattleSpeed(int value)
-    {
-        setBattleSpeed(this.battleSpeed + value) ;
+
+    public void updateBattleSpeed(int value) {
+        setBattleSpeed(this.battleSpeed + value);
     }
-    public void enterBattleState(){
+
+    public void enterBattleState() {
         this.battleStr = str;
         this.battleDef = def;
         this.battleSpeed = speed;
     }
-    public void addItem(Item item)
-    {
+
+    public void addItem(Item item) {
         items.add(item);
     }
 

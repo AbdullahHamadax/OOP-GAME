@@ -13,7 +13,7 @@ import static Classes.Util.*;
 import static java.lang.Math.max;
 
 public class BattleManager {
-    String[] playerActions = new String[]{"Fight", "Observe", "Surrender"};
+    String[] playerActions = new String[]{"Fight", "Observe", "Surrender", "Use item"};
 
 
     public static String constructString(String s, int width){
@@ -120,6 +120,8 @@ public class BattleManager {
                     notDone = false;
 
                 }
+                case 4 -> System.out.println("Coming soon!!");
+
             }
         }
     }

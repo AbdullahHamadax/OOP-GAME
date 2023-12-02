@@ -164,7 +164,7 @@ public class BattleManager {
 
         while(battleOngoing){
 
-            Arrays.sort(battleChars, Comparator.comparingInt(Character::getBattleSpeed));
+            Arrays.sort(battleChars, Comparator.comparingInt(Character::getBattleSpeed).reversed());
             for(Character entity : battleChars){
                 clearTerminal();
                 String currentStatsMessage = printCurrentBattleStats(player, enemy, turnCounter);

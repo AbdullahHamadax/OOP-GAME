@@ -30,10 +30,10 @@ public class Move {
         int damage = (int)(((double) user.getStr() / 10) * power) + 1;
         double randomValue = Math.random();
         if(randomValue >= (double)accuracy/ 100)
-            return 0;
+            return -1;
 
 
         target.updateHp(damage * -1);
-        return 1;
+        return damage;
     }
 }

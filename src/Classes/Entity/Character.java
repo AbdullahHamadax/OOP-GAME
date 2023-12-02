@@ -4,7 +4,7 @@ import Classes.Move;
 
 import java.util.ArrayList;
 
-public class Character {
+public abstract class Character {
     public ArrayList<Move> moves;
     public ArrayList<Item> items;
     private String name;

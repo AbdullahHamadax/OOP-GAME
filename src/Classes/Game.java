@@ -1,6 +1,5 @@
 package Classes;
 
-import Classes.Entity.Character;
 import Classes.Entity.Enemy;
 import Classes.Entity.Item;
 import Classes.Entity.Player;
@@ -10,10 +9,10 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
-import static Classes.Util.optionsMenu;
-import static Classes.Util.printTitle;
-import static Classes.Util.Color;
-import static Classes.Util.clearTerminal;
+import static Classes.Utility.optionsMenu;
+import static Classes.Utility.printTitle;
+import static Classes.Utility.Color;
+import static Classes.Utility.clearTerminal;
 
 import static java.lang.Math.max;
 

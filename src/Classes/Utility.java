@@ -30,10 +30,10 @@ public class Utility {
 
     public static void clearTerminal() {
 //        System.out.print("\033[H\033[2J");
-//        System.out.flush();
-//        for (int i = 0; i < 30; i++) {
-//            System.out.println();
-//        }
+        System.out.flush();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 
     public static void slowPrint(String s, int delay) {
@@ -55,7 +55,7 @@ public class Utility {
 
 
         while (!valid) {
-            clearTerminal();
+            clearTerminal(); // (this won't show the welcome message)
             printTitle(CHOOSE_MESSAGE);
             for (int i = 0; i < n; i++)
                 System.out.println((i + 1) + ". " + options[i]);

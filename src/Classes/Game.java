@@ -1,6 +1,5 @@
 package Classes;
 
-import Classes.Entity.Character;
 import Classes.Entity.Enemy;
 import Classes.Entity.Item;
 import Classes.Entity.Player;
@@ -10,15 +9,11 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
-import static Classes.Util.optionsMenu;
-import static Classes.Util.printTitle;
-import static Classes.Util.Color;
-import static Classes.Util.clearTerminal;
-
+import static Classes.Utility.*;
 import static java.lang.Math.max;
 
 public class Game {
-    private static final String WELCOME_MESSAGE = "Greetings, adventurer! The ROGUE REALMS welcomes you!";
+    private static final String WELCOME_MESSAGE = Color.GREEN.getColor()+"Greetings, adventurer! The ROGUE REALMS welcomes you!"+ Color.RESET.getColor();
 
 
     private final HashMap<String, Move> movesTable;
@@ -36,7 +31,7 @@ public class Game {
 
         while (true) {
             System.out.flush();
-            printTitle(WELCOME_MESSAGE);
+            slowPrint(WELCOME_MESSAGE,48);
 
             choice = optionsMenu(options, sc, false);
 
@@ -79,7 +74,7 @@ public class Game {
         moves.add(this.movesTable.get("Bite"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Enemy("wil", (int) (25 * lvlMultiplier), (int) (10 * lvlMultiplier),
+        return new Enemy("Margit the Fell Omen", (int) (25 * lvlMultiplier), (int) (10 * lvlMultiplier),
                 (int) (5 * lvlMultiplier), (int) (5 * lvlMultiplier), (int) (5 * lvlMultiplier), moves, (int) (5 * lvlMultiplier));
 
     }
@@ -93,7 +88,7 @@ public class Game {
         moves.add(this.movesTable.get("Slap"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Enemy("wil2", (int) (50 * lvlMultiplier), (int) (10 * lvlMultiplier), (int) (10 * lvlMultiplier),
+        return new Enemy("Malgrim the Cursed Oracle", (int) (50 * lvlMultiplier), (int) (10 * lvlMultiplier), (int) (10 * lvlMultiplier),
                 (int) (10 * lvlMultiplier), (int) (8 * lvlMultiplier), moves, (int) (15 * lvlMultiplier));
     }
 

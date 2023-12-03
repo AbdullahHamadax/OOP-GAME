@@ -17,8 +17,9 @@ public class Move {
         this.id = id;
         this.accuracy = accuracy;
     }
+
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return id;
     }
 
@@ -26,10 +27,10 @@ public class Move {
         return name;
     }
 
-    public int use(Character user, Character target){
-        int damage = (int)(((double) user.getStr() / 10) * power) + 1;
+    public int use(Character user, Character target) {
+        int damage = (int) (((double) user.getStr() / 10) * power) + 1;
         double randomValue = Math.random();
-        if(randomValue >= (double)accuracy/ 100)
+        if (randomValue >= (double) accuracy / 100)
             return -1;
 
 

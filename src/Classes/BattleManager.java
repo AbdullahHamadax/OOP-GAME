@@ -9,11 +9,11 @@ import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
-import static Classes.Util.*;
+import static Classes.Utility.*;
 import static java.lang.Math.max;
 
 public class BattleManager {
-    private final String[] playerActions = new String[]{"Fight", "Observe", "Surrender", "Use item"};
+    String[] playerActions = new String[]{"Fight", "Observe", "Surrender", "Use item"};
 
 
     public static String constructString(String s, int width){
@@ -91,11 +91,11 @@ public class BattleManager {
                     int value = player.use(enemy, player.moves.get(choice));
 
                     if(value == -1)
-                        System.out.println("it was a total miss");
+                        System.out.println("It was a total miss!");
 
                     else
-                        System.out.printf("it dealt %d points of damage\n", value);
-                    System.err.print(PRESS_ENTER);
+                        System.out.printf("It dealt %d points of damage\n", value);
+                    System.err.println("Press enter to continue....");
                     sc.nextLine();
                     notDone = false;
                 }
@@ -112,10 +112,9 @@ public class BattleManager {
                 }
                 case 3 ->{
                     player.setHp(-1);
-                    slowPrint("You surrender like a loser hehehahhahah!\n", 50);
+                    System.out.println("The battle-worn adventurer, "+player.getName() + " raises their hands in surrender.");
 
-
-                    System.err.print(PRESS_ENTER);
+                    System.err.println("Press Enter to Continue....");
                     sc.nextLine();
 
                     notDone = false;
@@ -125,10 +124,6 @@ public class BattleManager {
 
             }
         }
-    }
-
-    private void executePlayerFight(Player player, Enemy enemy, Scanner sc){
-
     }
 
     private void enemyTurn(Enemy enemy, Scanner sc, Player player, Random random, String battleMessage){
@@ -146,7 +141,7 @@ public class BattleManager {
         else
             System.out.printf("it dealt %d points of damage\n", value);
 
-        System.err.print(PRESS_ENTER);
+        System.err.println("Press enter to continue....");
         sc.nextLine();
     }
 
@@ -160,7 +155,7 @@ public class BattleManager {
         printTitle(battleTitle);
 
         sc.nextLine();
-        System.out.print(PRESS_ENTER);
+        System.out.print("Press enter key to start");
         sc.nextLine();
 
         for(Character chara : battleChars)
@@ -185,24 +180,18 @@ public class BattleManager {
                 int result = checkIfBattleStatus(player, enemy);
 
                 if (result == 1) {
-
-                    clearTerminal();
-
                     int xpGained = enemy.getXpValue();
 
                     System.out.printf("Battle is over! %s won!\n", player.getName());
                     player.updateTotalXP(enemy.getXpValue());
                     System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained, player.getXPTillLvl() - player.getTotalXP(), player.getLvl() + 1);
 
-                    System.err.print(PRESS_ENTER);
+                    System.err.println("Press enter to continue....");
                     sc.nextLine();
 
                     battleOngoing = false;
                     break;
                 } else if (result == 2) {
-
-                    clearTerminal();
-
                     int xpGained = max(enemy.getXpValue() / 2, 1);
                     System.out.printf("Battle is over! %s lost!\n", player.getName());
                     player.updateTotalXP(xpGained);
@@ -210,7 +199,7 @@ public class BattleManager {
 
                     player.restore();
 
-                    System.err.print(PRESS_ENTER);
+                    System.err.println("Press enter to continue....");
                     sc.nextLine();
 
                     battleOngoing = false;

@@ -50,31 +50,14 @@ public class Item {
     public void use(Character character) {
         effects.forEach((key, value) -> {
             switch (key) {
-                case "HP":
-                    character.updateHp(value);
-                    break;
-                case "MP":
-                    character.updateMp(value);
-                    break;
-                case "STR":
-                    character.updateStr(value);
-                    break;
-                case "DF":
-                    character.updateDef(value);
-                    break;
-                case "SPD":
-                    character.setSpeed(value);
-                    break;
-                case "BATTLE_STR":
-                    character.updatBattleStr(value);
-                    break;
-                case "BATTLE_SPEED":
-                    character.setBattleSpeed(value);
-                    break;
-                case "BATTLE_DEF":
-                    character.setBattleDef(value);
-                    break;
-
+                case "HP" -> character.updateHp(value);
+                case "MP" -> character.updateMp(value);
+                case "STR" -> character.updateStr(value);
+                case "DF" -> character.updateDef(value);
+                case "SPD" -> character.setSpeed(value);
+                case "BATTLE_STR" -> character.updatBattleStr(value);
+                case "BATTLE_SPEED" -> character.setBattleSpeed(value);
+                case "BATTLE_DEF" -> character.setBattleDef(value);
             }
         });
 

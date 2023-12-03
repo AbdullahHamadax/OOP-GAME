@@ -37,13 +37,13 @@ public class Utility {
     }
 
     public static void slowPrint(String s, int delay) {
-        try {
-            TimeUnit.MILLISECONDS.sleep(delay);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        for (int i = 0; i < s.length(); i++) {
-            System.out.printf("%c", s.charAt(i));
+        for (char c : s.toCharArray()) {
+            System.out.print(c);
+            try {
+                TimeUnit.MILLISECONDS.sleep(delay);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

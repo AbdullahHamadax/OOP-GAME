@@ -91,10 +91,10 @@ public class BattleManager {
                     int value = player.use(enemy, player.moves.get(choice));
 
                     if(value == -1)
-                        System.out.println("it was a total miss!");
+                        System.out.println("It was a total miss!");
 
                     else
-                        System.out.printf("it dealt %d points of damage\n", value);
+                        System.out.printf("It dealt %d points of damage\n", value);
                     System.err.println("Press enter to continue....");
                     sc.nextLine();
                     notDone = false;
@@ -112,7 +112,7 @@ public class BattleManager {
                 }
                 case 3 ->{
                     player.setHp(-1);
-                    System.out.println("The battle-worn adventurer, "+player.getName() + "raises their hands in surrender.");
+                    System.out.println("The battle-worn adventurer, "+player.getName() + " raises their hands in surrender.");
 
                     System.err.println("Press Enter to Continue....");
                     sc.nextLine();

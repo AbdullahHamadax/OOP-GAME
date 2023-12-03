@@ -30,10 +30,10 @@ public class Utility {
 
     public static void clearTerminal() {
 //        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        for (int i = 0; i < 30; i++) {
-            System.out.println();
-        }
+//        System.out.flush();
+//        for (int i = 0; i < 30; i++) {
+//            System.out.println();
+//        }
     }
 
     public static void slowPrint(String s, int delay) {
@@ -43,7 +43,7 @@ public class Utility {
             throw new RuntimeException(e);
         }
         for (int i = 0; i < s.length(); i++) {
-            System.out.printf(String.valueOf(s.charAt(i)));
+            System.out.printf("%c", s.charAt(i));
         }
     }
 

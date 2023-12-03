@@ -1,9 +1,11 @@
 package Classes;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Util {
     private static final String CHOOSE_MESSAGE = "Choose an option :";
+    public static final String PRESS_ENTER = Color.RED.getColor() + "Press enter to continue...." + Color.RESET.getColor();
     public enum Color {
         RED("\u001B[31m"),
         RESET("\u001B[0m"),
@@ -77,6 +79,18 @@ public class Util {
             }
         }
         return choice;
+    }
+
+
+    public static void slowPrint(String s, int delay) {
+        for(char c : s.toCharArray()){
+            System.out.print(c);
+            try {
+                TimeUnit.MILLISECONDS.sleep(delay);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public static int optionsMenu(String[] options, Scanner sc, boolean back, String Message) {

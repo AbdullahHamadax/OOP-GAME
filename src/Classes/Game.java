@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import static Classes.Utility.*;
+import static java.lang.Math.E;
 import static java.lang.Math.max;
 
 public class Game {
@@ -28,10 +29,10 @@ public class Game {
         int choice;
 
         String[] options = new String[]{"Start game", "Exit"};
-
         while (true) {
             System.out.flush();
             slowPrint(WELCOME_MESSAGE,48);
+            clearTerminal();
 
             choice = optionsMenu(options, sc, false);
 
@@ -74,7 +75,7 @@ public class Game {
         moves.add(this.movesTable.get("Bite"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Enemy("Margit the Fell Omen", (int) (25 * lvlMultiplier), (int) (10 * lvlMultiplier),
+        return new Enemy("Margit the Fell Omen", (int) (2 * lvlMultiplier), (int) (10 * lvlMultiplier),
                 (int) (5 * lvlMultiplier), (int) (5 * lvlMultiplier), (int) (5 * lvlMultiplier), moves, (int) (5 * lvlMultiplier));
 
     }
@@ -88,8 +89,18 @@ public class Game {
         moves.add(this.movesTable.get("Slap"));
         moves.add(this.movesTable.get("Scratch"));
 
-        return new Enemy("Malgrim the Cursed Oracle", (int) (50 * lvlMultiplier), (int) (10 * lvlMultiplier), (int) (10 * lvlMultiplier),
+        return new Enemy("Malgrim the Cursed Oracle", (int) (50 * lvlMultiplier), (int) (30 * lvlMultiplier), (int) (10 * lvlMultiplier),
                 (int) (10 * lvlMultiplier), (int) (8 * lvlMultiplier), moves, (int) (15 * lvlMultiplier));
+    }
+
+
+    private void startMultiEnemy(Player player, Scanner sc, Random random, BattleManager battleManager, int playerLvl) {
+        Enemy easy = initEasyEnemy(playerLvl);
+        Enemy hard = initHardEnemy(playerLvl);
+        Enemy easy2 = initEasyEnemy(playerLvl);
+
+        Enemy[] arr = {easy, hard, easy2};
+        battleManager.initiateBattle(player, arr, sc, random);
     }
 
     private void shop(Scanner in, Player player) {
@@ -153,7 +164,7 @@ public class Game {
         int choice;
         BattleManager battleManager = new BattleManager();
 
-        String[] Options = new String[]{"Battle (easy)", "Battle (hard)", "Shop", "Current stats", "Main menu"};
+        String[] Options = new String[]{"Battle (easy)", "Battle (hard)", "Shop", "Current stats", "multi Enemy Battle test", "Main menu"};
         Random random = new Random(System.currentTimeMillis());
 
         initMovesTable();
@@ -165,11 +176,12 @@ public class Game {
             choice = optionsMenu(Options, sc, false);
 
             switch (choice) {
-                case 1 -> battleManager.createBattle(player, this.initEasyEnemy(player.getLvl()), sc, random);
-                case 2 -> battleManager.createBattle(player, this.initHardEnemy(player.getLvl()), sc, random);
+                case 1 -> battleManager.initiateBattle(player, this.initEasyEnemy(player.getLvl()), sc, random);
+                case 2 -> battleManager.initiateBattle(player, this.initHardEnemy(player.getLvl()), sc, random);
                 case 3 -> shop(sc, player);
                 case 4 -> printStats(player);
-                case 5 -> {
+                case 5 -> startMultiEnemy(player, sc, random, battleManager, player.getLvl());
+                case 6 -> {
                     return;
                 }
             }

@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Utility {
     private static final String CHOOSE_MESSAGE = "Choose an option :";
-
+    public static final String PRESS_ENTER_MESSAGE = Color.RED.getColor() + "Press enter to continue...." + Color.RESET.getColor();
     public enum Color {
         RED("\u001B[31m"),
         RESET("\u001B[0m"),
@@ -29,11 +29,11 @@ public class Utility {
     }
 
     public static void clearTerminal() {
-//        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
+        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+//        for (int i = 0; i < 50; i++) {
+//            System.out.println();
+//        }
     }
 
     public static void slowPrint(String s, int delay) {
@@ -60,16 +60,15 @@ public class Utility {
             for (int i = 0; i < n; i++)
                 System.out.println((i + 1) + ". " + options[i]);
 
-            if (back) {
+            if (back)
                 System.out.println((n + 1) + ". back");
-                System.out.printf("\nEnter a valid option (%d to %d) : ", 1, n + 1);
-            } else
-                System.out.printf("\nEnter a valid option (%d to %d) : ", 1, n);
+
+            System.out.printf("\nEnter a valid option (%d to %d) : ", 1, back? n+1 : n);
 
             try {
                 choice = sc.nextInt();
 
-                if (choice == n + 1)
+                if (back && choice == n + 1)
                     return -1;
 
                 if (choice > 0 && choice <= n)
@@ -77,12 +76,13 @@ public class Utility {
 
                 else {
                     sc.nextLine();
-                    System.err.printf("Invalid choice! Please enter a number between 1 and %d!\nPress enter to continue....", n);
+
+                    System.err.printf("Invalid choice! Please enter a number between 1 and %d!\n" + PRESS_ENTER_MESSAGE, back? n+1 : n);
                     sc.nextLine();
                 }
             } catch (Exception e) {
                 sc.nextLine();
-                System.err.println("Invalid input! Please enter a number only!\nPress enter to continue....");
+                System.err.print("Invalid input! Please enter a number only!\n" + PRESS_ENTER_MESSAGE);
                 sc.nextLine();
 
             }
@@ -107,11 +107,11 @@ public class Utility {
             if (back)
                 System.out.println((n + 1) + ". back");
 
-            System.out.printf("\nEnter a valid option (%d to %d) : ", 1, n);
+            System.out.printf("\nEnter a valid option (%d to %d) : ", 1, back? n+1 : n);
             try {
                 choice = sc.nextInt();
 
-                if (choice == n + 1)
+                if (back && choice == n + 1)
                     return -1;
 
                 if (choice > 0 && choice <= n)
@@ -119,12 +119,12 @@ public class Utility {
 
                 else {
                     sc.nextLine();
-                    System.err.printf("Invalid choice! Please enter a number between 1 and %d!\nPress enter to continue....", n);
+                    System.err.printf("Invalid choice! Please enter a number between 1 and %d!\n" + PRESS_ENTER_MESSAGE, back? n+1 : n);
                     sc.nextLine();
                 }
             } catch (Exception e) {
                 sc.nextLine();
-                System.err.println("Invalid input! Please enter a number only!\nPress enter to continue....");
+                System.err.print("Invalid input! Please enter a number only!\n" + PRESS_ENTER_MESSAGE);
                 sc.nextLine();
 
             }

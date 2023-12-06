@@ -217,6 +217,8 @@ public class BattleManager {
     // fix formatting (still happens in idea but works fine in terminal, will fix tho)
     private void createBattle(Player player, Enemy[] enemies, Scanner sc, Random random){
 
+        clearTerminal();
+
         boolean battleOngoing = true;
         Character[] battleChars = new Character[1 + enemies.length];
 

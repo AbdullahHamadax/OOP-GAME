@@ -88,7 +88,7 @@ public class BattleManager {
         sc.nextLine();
     }
 
-    private void playerTurn(Player player, Scanner sc, Enemy[] enemy, String currentStats){
+    private void playerTurn(Player player, Scanner sc, Enemy[] enemies, String currentStats){
         boolean notDone = true;
         int choice;
 
@@ -96,21 +96,16 @@ public class BattleManager {
 
             choice = optionsMenu(playerActions, sc, false, currentStats);
 
+            boolean event = false;
             switch (choice){
-                case 1 -> {
-                    boolean event = playerFightAction(player, enemy, sc);
-                    if(event)
-                        notDone = false;
-                }
-                case 2 -> playerObserveAction(player, enemy, sc);
-                case 3 ->{
-                    boolean event = playerSurrenderAction(player, sc);
-                    if(event)
-                        notDone = false;
-                }
+                case 1 -> event = playerFightAction(player, enemies, sc);
+                case 2 -> event = playerObserveAction(player, enemies, sc);
+                case 3 -> event = playerSurrenderAction(player, sc);
                 case 4 -> System.out.println("Coming soon!!");
 
             }
+            if(event)
+                notDone = false;
         }
     }
     //return true to determine end of turn, false in case of back

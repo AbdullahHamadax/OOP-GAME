@@ -28,6 +28,7 @@ public abstract class Character {
         this.battleDef = def;
         this.battleStr = str;
         this.battleSpeed = speed;
+        this.items = new ArrayList<>();
     }
 
     public void setSpeed(int speed) {

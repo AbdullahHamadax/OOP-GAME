@@ -5,6 +5,7 @@ import Classes.Entity.Enemy;
 import Classes.Entity.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static Classes.Utility.*;
 import static java.lang.Math.max;
@@ -115,33 +116,6 @@ public class BattleManager {
         sc.nextLine();
     }
 
-//    private void playerTurn(Player player, Scanner sc, Enemy enemy, String currentStats){
-//        boolean notDone = true;
-//        int choice;
-//
-//        while(notDone){
-//
-//            choice = optionsMenu(playerActions, sc, false, currentStats);
-//
-//            switch (choice){
-//                case 1 -> {
-//                    boolean event = playerFightAction(player, enemy, sc);
-//                    if(event)
-//                        notDone = false;
-//                }
-//                case 2 -> {
-//                    playerObserveAction(player, enemy, sc);
-//                }
-//                case 3 ->{
-//                    boolean event = playerSurrenderAction(player, sc);
-//                    if(event)
-//                        notDone = false;
-//                }
-//                case 4 -> System.out.println("Coming soon!!");
-//
-//            }
-//        }
-//    }
     private void playerTurn(Player player, Scanner sc, Enemy[] enemy, String currentStats){
         boolean notDone = true;
         int choice;
@@ -201,13 +175,7 @@ public class BattleManager {
     }
 
     private boolean playerObserveAction(Player player, Enemy[] enemies, Scanner sc){
-        int choice, target = 0;
-
-        if(enemies.length > 1)
-            target = selectTarget(enemies, sc);
-
-        if(target == -1)
-            return false;
+        int choice;
 
         String[] options = new String[1 + enemies.length];
         options[0] = "Current stats";
@@ -281,12 +249,13 @@ public class BattleManager {
         createBattle(player, new Enemy[]{enemy}, sc, random);
     }
 
-    // fix battleChars keeping dead enemies
-    // fix formatting
+    // fix formatting (still happens in idea but works fine in terminal, will fix tho)
     private void createBattle(Player player, Enemy[] enemies, Scanner sc, Random random){
 
         boolean battleOngoing = true;
         Character[] battleChars = new Character[1 + enemies.length];
+
+        Set<Character> defeatedEnemies = new HashSet<>();
 
         int totalBattleXp = Arrays.stream(enemies).map(Enemy::getXpValue).reduce(0, Integer::sum);
 
@@ -318,6 +287,10 @@ public class BattleManager {
 
             Arrays.sort(battleChars, Comparator.comparingInt(Character::getBattleSpeed).reversed());
             for(Character entity : battleChars){
+
+                if(defeatedEnemies.contains(entity))
+                    continue;
+
                 clearTerminal();
                 String currentStatsMessage = printCurrentBattleStats(player, enemies, turnCounter);
                 if(entity == player){
@@ -336,7 +309,11 @@ public class BattleManager {
                     break;
                 } else if (result == 2) {
                     clearTerminal();
-                    enemies = removeDefeatedEnemies(enemies);
+                    defeatedEnemies.addAll(getDefeatedEnemies(enemies, sc));
+
+                    enemies = Arrays.stream(enemies).filter(enemy -> !defeatedEnemies.contains(enemy)).toArray(Enemy[]::new);
+                    battleChars = Arrays.stream(battleChars).filter(chara -> !defeatedEnemies.contains(chara)).toArray(Character[]::new);
+
                     if(enemies.length == 0){
                         battleWonEvent(player, totalBattleXp, sc);
                         battleOngoing = false;
@@ -349,15 +326,18 @@ public class BattleManager {
         }
 
     }
-    private Enemy[] removeDefeatedEnemies(Enemy[] enemies){
-        for (Enemy enemy : enemies) {
-            if (enemy.getHp() == 0) {
-                System.out.printf("%s was defeated\n", enemy.getName());
-            }
+    private Set<Character> getDefeatedEnemies(Enemy[] enemies, Scanner sc){
+
+        Set<Character> defeatedEnemies = Arrays.stream(enemies).filter((enemy -> enemy.getHp() == 0)).collect(Collectors.toSet());
+
+        for (Character enemy : defeatedEnemies){
+            System.out.printf("%s was defeated\n", enemy.getName());
+            System.out.print(PRESS_ENTER_MESSAGE);
+            sc.nextLine();
         }
 
-        return Arrays.stream(enemies).filter((enemy) -> enemy.getHp() != 0).toArray(Enemy[]::new);
 
+        return defeatedEnemies;
     }
     private void battleWonEvent(Player player, int xpGained, Scanner sc){
 

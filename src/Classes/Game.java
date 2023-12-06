@@ -99,6 +99,7 @@ public class Game {
         Enemy hard = initHardEnemy(playerLvl);
         Enemy easy2 = initEasyEnemy(playerLvl);
 
+        easy2.setName("TESTSJSJ");
         Enemy[] arr = {easy, hard, easy2};
         battleManager.initiateBattle(player, arr, sc, random);
     }

@@ -10,8 +10,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import static Classes.Utility.*;
-import static java.lang.Math.E;
-import static java.lang.Math.max;
+
 
 public class Game {
     private static final String WELCOME_MESSAGE = Color.GREEN.getColor()+"Greetings, adventurer! The ROGUE REALMS welcomes you!"+ Color.RESET.getColor();

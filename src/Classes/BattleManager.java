@@ -12,7 +12,6 @@ import static java.lang.Math.max;
 
 public class BattleManager {
     String[] playerActions = new String[]{"Fight", "Observe", "Surrender", "Use item"};
-    class test{};
 
     public static String constructString(String s, int width){
         StringBuilder output = new StringBuilder(" ".repeat(width - 2));
@@ -31,31 +30,31 @@ public class BattleManager {
         // return Arrays.stream(enemies).allMatch((enemy) -> enemy.getHp() == 0)? 2 : 0;
 
     }
-    private String printCurrentBattleStats(Player player, Enemy enemy, int turn){
-        int width = max(player.getName().length(), enemy.getName().length()) * 2 + 10;
-        StringBuilder message = new StringBuilder();
-
-        String[] playerSection = new String[3];
-        String[] enemySection = new String[3];
-
-        message.append("*".repeat(12)).append("\n");
-        message.append("Turn : ").append(turn).append("\n");
-        message.append("*".repeat(width * 2 + 1)).append("\n");
-
-        playerSection[0] = constructString(String.format("%s", player.getName()), width);
-        playerSection[1] = constructString(String.format("HP: %d/%d", player.getHp(), player.getMaxHP()), width);
-        playerSection[2] = constructString(String.format("SP: %d/%d", player.getMp(), player.getMaxMP()), width);
-
-        enemySection[0] = constructString(String.format("%s", enemy.getName()), width);
-        enemySection[1] = constructString(String.format("HP: %d/%d", enemy.getHp(), enemy.getMaxHP()), width);
-        enemySection[2] = constructString(String.format("SP: %d/%d", enemy.getMp(), enemy.getMaxMP()), width);
-
-        for(int i = 0; i < 3; i++)
-            message.append(playerSection[i]).append("||").append(enemySection[i]).append("\n");
-
-        message.append("*".repeat(width * 2 + 1));
-        return message.toString();
-    }
+//    private String printCurrentBattleStats(Player player, Enemy enemy, int turn){
+//        int width = max(player.getName().length(), enemy.getName().length()) * 2 + 10;
+//        StringBuilder message = new StringBuilder();
+//
+//        String[] playerSection = new String[3];
+//        String[] enemySection = new String[3];
+//
+//        message.append("*".repeat(12)).append("\n");
+//        message.append("Turn : ").append(turn).append("\n");
+//        message.append("*".repeat(width * 2 + 1)).append("\n");
+//
+//        playerSection[0] = constructString(String.format("%s", player.getName()), width);
+//        playerSection[1] = constructString(String.format("HP: %d/%d", player.getHp(), player.getMaxHP()), width);
+//        playerSection[2] = constructString(String.format("SP: %d/%d", player.getMp(), player.getMaxMP()), width);
+//
+//        enemySection[0] = constructString(String.format("%s", enemy.getName()), width);
+//        enemySection[1] = constructString(String.format("HP: %d/%d", enemy.getHp(), enemy.getMaxHP()), width);
+//        enemySection[2] = constructString(String.format("SP: %d/%d", enemy.getMp(), enemy.getMaxMP()), width);
+//
+//        for(int i = 0; i < 3; i++)
+//            message.append(playerSection[i]).append("||").append(enemySection[i]).append("\n");
+//
+//        message.append("*".repeat(width * 2 + 1));
+//        return message.toString();
+//    }
 
     private String printCurrentBattleStats(Player player, Enemy[] enemys, int turn){
 
@@ -130,9 +129,7 @@ public class BattleManager {
                     if(event)
                         notDone = false;
                 }
-                case 2 -> {
-                    playerObserveAction(player, enemy, sc);
-                }
+                case 2 -> playerObserveAction(player, enemy, sc);
                 case 3 ->{
                     boolean event = playerSurrenderAction(player, sc);
                     if(event)

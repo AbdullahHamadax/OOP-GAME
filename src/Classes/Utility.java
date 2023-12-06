@@ -104,7 +104,7 @@ public class Utility {
             for (int i = 0; i < n; i++)
                 System.out.println((i + 1) + ". " + options[i]);
 
-            if (back)
+                if (back)
                 System.out.println((n + 1) + ". back");
 
             System.out.printf("\nEnter a valid option (%d to %d) : ", 1, back? n+1 : n);

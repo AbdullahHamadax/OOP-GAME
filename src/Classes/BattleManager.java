@@ -149,7 +149,7 @@ public class BattleManager {
 
         choice = optionsMenu(options, sc,true);
         if(choice == -1)
-            return true;
+            return false;
 
         if(choice == 1)
             printCharacterStats(player, sc);

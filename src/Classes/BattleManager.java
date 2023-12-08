@@ -29,9 +29,9 @@ public class BattleManager {
 
     }
 
-    private String printCurrentBattleStats(Player player, Enemy[] enemys, int turn){
+    private String printCurrentBattleStats(Player player, Enemy[] enemies, int turn){
 
-        Optional<Integer> longestName = Arrays.stream(enemys)
+        Optional<Integer> longestName = Arrays.stream(enemies)
                 .map(Character::getName)
                 .map(String::length)
                 .max(Integer::compareTo);
@@ -40,34 +40,34 @@ public class BattleManager {
         StringBuilder message = new StringBuilder();
 
         String[] playerSection = new String[3];
-        String[][] enemySection = new String[enemys.length][3];
+        String[][] enemySection = new String[enemies.length][3];
 
         message.append("*".repeat(12)).append("\n");
         message.append("Turn : ").append(turn).append("\n");
-        message.append("*".repeat(width * enemys.length + 1)).append("\n");
+        message.append("*".repeat(width * enemies.length + 1)).append("\n");
 
         playerSection[0] = constructString(String.format("%s", player.getName()), width);
         playerSection[1] = constructString(String.format("HP: %d/%d", player.getHp(), player.getMaxHP()), width);
         playerSection[2] = constructString(String.format("SP: %d/%d", player.getMp(), player.getMaxMP()), width);
 
-        for(int i = 0; i < enemys.length; i++){
-            enemySection[i][0] = constructString(String.format("%s", enemys[i].getName()), width);
-            enemySection[i][1] = constructString(String.format("HP: %d/%d", enemys[i].getHp(), enemys[i].getMaxHP()), width);
-            enemySection[i][2] = constructString(String.format("SP: %d/%d", enemys[i].getMp(), enemys[i].getMaxMP()), width);
+        for(int i = 0; i < enemies.length; i++){
+            enemySection[i][0] = constructString(String.format("%s", enemies[i].getName()), width);
+            enemySection[i][1] = constructString(String.format("HP: %d/%d", enemies[i].getHp(), enemies[i].getMaxHP()), width);
+            enemySection[i][2] = constructString(String.format("SP: %d/%d", enemies[i].getMp(), enemies[i].getMaxMP()), width);
         }
 
 
 
         for(int i = 0; i < 3; i++){
-            for(int j = 0; j < enemys.length; j++){
-                if(j == enemys.length-1)
+            for(int j = 0; j < enemies.length; j++){
+                if(j == enemies.length-1)
                     message.append(enemySection[j][i]);
                 else
                     message.append(enemySection[j][i]).append("||");
             }
             message.append("\n");
         }
-        message.append("*".repeat(width * enemys.length + 1));
+        message.append("*".repeat(width * enemies.length + 1));
         message.append("\n");
 
 
@@ -162,7 +162,7 @@ public class BattleManager {
 
     private boolean playerSurrenderAction(Player player, Scanner sc){
         player.setHp(-1);
-        System.out.println("The battle-worn adventurer, "+player.getName() + " raises their hands in surrender.");
+        System.out.println(Color.MAGENTA.getColor()+player.getName() + " raises their hands in surrender.");
 
         System.err.print(PRESS_ENTER_MESSAGE);
         sc.nextLine();

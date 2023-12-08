@@ -1,4 +1,4 @@
-package Classes;
+package Classes.Core;
 
 
 import Classes.Entity.Character;

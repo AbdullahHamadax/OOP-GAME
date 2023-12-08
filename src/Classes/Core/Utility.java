@@ -1,4 +1,4 @@
-package Classes;
+package Classes.Core;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;

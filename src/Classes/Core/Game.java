@@ -1,4 +1,4 @@
-package Classes;
+package Classes.Core;
 
 import Classes.Entity.Enemy;
 import Classes.Entity.Item;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
-import static Classes.Utility.*;
+import static Classes.Core.Utility.*;
 
 
 public class Game {

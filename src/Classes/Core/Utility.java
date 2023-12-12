@@ -29,11 +29,8 @@ public class Utility {
     }
 
     public static void clearTerminal() {
+        System.out.flush();
         System.out.print("\033[H\033[2J");
-//        System.out.flush();
-//        for (int i = 0; i < 50; i++) {
-//            System.out.println();
-//        }
     }
 
     public static void slowPrint(String s, int delay) {
@@ -55,7 +52,7 @@ public class Utility {
 
 
         while (!valid) {
-            clearTerminal(); // (this won't show the welcome message)
+            clearTerminal();
             printTitle(CHOOSE_MESSAGE);
             for (int i = 0; i < n; i++)
                 System.out.println((i + 1) + ". " + options[i]);

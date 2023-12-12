@@ -4,20 +4,40 @@ import Classes.Entity.Enemy;
 import Classes.Entity.Item;
 import Classes.Entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static Classes.Core.Utility.*;
 
 
 public class Game {
     private static final String WELCOME_MESSAGE = Color.GREEN.getColor()+"Greetings, adventurer! The ROGUE REALMS welcomes you!"+ Color.RESET.getColor();
+    private static final int slowText=20, mediumText=40,fastText=55;
+    private static int gameSpeed=mediumText;
+
+    String[] options = new String[]{"Slow","Fast","Medium"};
 
 
     private final HashMap<String, Move> movesTable;
     private final ArrayList<Item> items;
+
+    public void textSpeed(Scanner sc){
+        optionsMenu(options,sc,false);
+        int textSpeedChoice=optionsMenu(options,sc,false);
+        switch (textSpeedChoice){
+            case 1 -> {
+                System.out.println("The text speed of the game will be on "+Color.RED.getColor()+"Slow "+Color.RESET.getColor()+" now.");
+                gameSpeed=slowText;
+            }
+            case 2 -> {
+                System.out.println("The text speed of the game will be on "+Color.GREEN.getColor()+"Fast"+Color.RESET.getColor()+" now.");
+                gameSpeed=fastText;
+            }
+            case 3 -> {
+                System.out.println("The text speed of the game will be on "+Color.YELLOW.getColor()+"Medium "+Color.RESET.getColor()+" now.");
+                gameSpeed=mediumText;
+            }
+        }
+    }
 
     public Game() {
         movesTable = new HashMap<>();
@@ -27,7 +47,7 @@ public class Game {
     public void initialize(Scanner sc) {
         int choice;
 
-        String[] options = new String[]{"Start game", "Exit"};
+        String[] options = new String[]{"Start game", "Text Speed","Exit"};
         while (true) {
             System.out.flush();
             slowPrint(WELCOME_MESSAGE,48);
@@ -37,7 +57,8 @@ public class Game {
 
             switch (choice) {
                 case 1 -> startGame(sc);
-                case 2 -> {
+                case 2 -> textSpeed(sc);
+                case 3 -> {
                     System.out.print(Color.MAGENTA.getColor() + "As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer!"+Color.RESET.getColor());
                     System.exit(0);
                 }
@@ -110,7 +131,7 @@ public class Game {
         System.out.println("First Item : Healing Elixir \n Item Description : Restores a moderate amount of health \n Price : 50$ \n ********************************");
         System.out.println("Second Item : Vitality Draught \n Item Description : Restores a small amount of health \n Price : 30$ \n ********************************");
         System.out.println("Third Item : Celestial Tonic \n Item Description : Heals a substantial amount of health \n Price : 100$ \n ********************************");
-        System.out.println("Choose the Item you need : ");
+        System.out.println("Choose the item you need : ");
 
         int x = in.nextInt();
         switch (x) {

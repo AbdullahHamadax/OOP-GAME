@@ -12,7 +12,7 @@ import static Classes.Core.Utility.*;
 public class Game {
     private static final String WELCOME_MESSAGE = Color.GREEN.getColor()+"Greetings, adventurer! The ROGUE REALMS welcomes you!"+ Color.RESET.getColor();
     private static final int slowText=20, mediumText=40,fastText=55;
-    private static int gameSpeed=mediumText;
+    private int gameSpeed=mediumText;
 
     String[] options = new String[]{"Slow","Fast","Medium"};
 

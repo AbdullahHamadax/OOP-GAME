@@ -1,4 +1,4 @@
-import Classes.Game;
+import Classes.Core.Game;
 import java.util.*;
 
 public class Main {

@@ -5,5 +5,5 @@ import static Classes.Core.Utility.*;
 
  public abstract class Event {
      private String eventName,eventDescription,eventTitle;
-
+     private Event next;
 }

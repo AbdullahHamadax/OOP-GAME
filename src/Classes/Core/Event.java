@@ -1,9 +1,17 @@
 package Classes.Core;
 
 import java.util.*;
-import static Classes.Core.Utility.*;
 
- public abstract class Event {
-     private String eventName,eventDescription,eventTitle;
-     private Event next;
-}
+public abstract class Event {
+     private final String eventName;
+     protected Scanner sc;
+     protected int id;
+     public Event(String eventName, Scanner sc) {
+         this.eventName = eventName;
+         this.sc= sc;
+     }
+
+
+     public abstract Event start();
+
+ }

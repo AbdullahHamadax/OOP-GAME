@@ -50,7 +50,7 @@ public class Game {
         String[] options = new String[]{"Start game", "Text Speed","Exit"};
         while (true) {
             System.out.flush();
-            slowPrint(WELCOME_MESSAGE,48);
+            slowPrint(WELCOME_MESSAGE,1); // origianl value is 48 but this is for fast testing!!
             clearTerminal();
 
             choice = optionsMenu(options, sc, false);
@@ -183,7 +183,6 @@ public class Game {
     private void startGame(Scanner sc) {
         int choice;
         BattleManager battleManager = new BattleManager();
-
         String[] Options = new String[]{"Battle (easy)", "Battle (hard)", "Shop", "Current stats", "multi Enemy Battle test", "Main menu"};
         Random random = new Random(System.currentTimeMillis());
 

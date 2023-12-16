@@ -7,12 +7,13 @@ import Classes.Entity.Player;
 import java.util.*;
 
 import static Classes.Core.Utility.*;
+import static Classes.Core.Data.*;
 
 
 public class Game {
     private static final String WELCOME_MESSAGE = Color.GREEN.getColor()+"Greetings, adventurer! The ROGUE REALMS welcomes you!"+ Color.RESET.getColor();
-    private static final int slowText=20, mediumText=40,fastText=55;
-    private int gameSpeed=mediumText;
+    public static final double slowText = 2, mediumText = 1, fastText = 0.4;
+
 
     String[] options = new String[]{"Slow","Fast","Medium"};
 
@@ -21,20 +22,19 @@ public class Game {
     private final ArrayList<Item> items;
 
     public void textSpeed(Scanner sc){
-        optionsMenu(options,sc,false);
         int textSpeedChoice=optionsMenu(options,sc,false);
         switch (textSpeedChoice){
             case 1 -> {
-                System.out.println("The text speed of the game will be on "+Color.RED.getColor()+"Slow "+Color.RESET.getColor()+" now.");
-                gameSpeed=  slowText;
+                System.out.println("The text speed of the game is now on "+Color.RED.getColor()+"Slow"+Color.RESET.getColor());
+                 setGameSpeed(slowText);
             }
             case 2 -> {
-                System.out.println("The text speed of the game will be on "+Color.GREEN.getColor()+"Fast"+Color.RESET.getColor()+" now.");
-                gameSpeed=fastText;
+                System.out.println("The text speed of the game is now on "+Color.GREEN.getColor()+"Fast"+Color.RESET.getColor());
+                setGameSpeed(fastText);
             }
             case 3 -> {
-                System.out.println("The text speed of the game will be on "+Color.YELLOW.getColor()+"Medium "+Color.RESET.getColor()+" now.");
-                gameSpeed=mediumText;
+                System.out.println("The text speed of the game is now on "+Color.YELLOW.getColor()+"Medium "+Color.RESET.getColor());
+                setGameSpeed(mediumText);
             }
         }
     }
@@ -50,7 +50,7 @@ public class Game {
         String[] options = new String[]{"Start game", "Text Speed","Exit"};
         while (true) {
             System.out.flush();
-            slowPrint(WELCOME_MESSAGE,48);
+            slowPrint(WELCOME_MESSAGE,1); // origianl value is 48 but this is for fast testing!!
             clearTerminal();
 
             choice = optionsMenu(options, sc, false);
@@ -168,7 +168,6 @@ public class Game {
     }
 
     private void printStats(Player player) {
-
         clearTerminal();
         System.out.println("\n\nPlayer name : " + player.getName());
         System.out.println("Player hp : " + player.getHp() + "/" + player.getMaxHP());
@@ -184,7 +183,6 @@ public class Game {
     private void startGame(Scanner sc) {
         int choice;
         BattleManager battleManager = new BattleManager();
-
         String[] Options = new String[]{"Battle (easy)", "Battle (hard)", "Shop", "Current stats", "multi Enemy Battle test", "Main menu"};
         Random random = new Random(System.currentTimeMillis());
 

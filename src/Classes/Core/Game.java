@@ -26,7 +26,7 @@ public class Game {
         switch (textSpeedChoice){
             case 1 -> {
                 System.out.println("The text speed of the game will be on "+Color.RED.getColor()+"Slow "+Color.RESET.getColor()+" now.");
-                gameSpeed=slowText;
+                gameSpeed=  slowText;
             }
             case 2 -> {
                 System.out.println("The text speed of the game will be on "+Color.GREEN.getColor()+"Fast"+Color.RESET.getColor()+" now.");

@@ -208,16 +208,16 @@ public class BattleManager {
         sc.nextLine();
     }
 
-    public void initiateBattle(Player player, Enemy[] enemies, Scanner sc, Random random) {
-        createBattle(player, enemies, sc, random);
+    public int initiateBattle(Player player, Enemy[] enemies, Scanner sc, Random random) {
+        return createBattle(player, enemies, sc, random);
     }
 
-    public void initiateBattle(Player player, Enemy enemy, Scanner sc, Random random) {
-        createBattle(player, new Enemy[]{enemy}, sc, random);
+    public int initiateBattle(Player player, Enemy enemy, Scanner sc, Random random) {
+        return createBattle(player, new Enemy[]{enemy}, sc, random);
     }
 
     // fix formatting (still happens in idea but works fine in terminal, will fix tho)
-    private void createBattle(Player player, Enemy[] enemies, Scanner sc, Random random) {
+    private int createBattle(Player player, Enemy[] enemies, Scanner sc, Random random) {
 
         clearTerminal();
 
@@ -244,7 +244,6 @@ public class BattleManager {
 
         printTitle(battleTitle);
 
-        sc.nextLine();
         System.out.print(PRESS_ENTER_MESSAGE);
         sc.nextLine();
 
@@ -274,7 +273,7 @@ public class BattleManager {
                     clearTerminal();
                     battleLostEvent(player, totalBattleXp, sc);
                     battleOngoing = false;
-                    break;
+                    return 0;
                 } else if (result == 2) {
                     clearTerminal();
                     defeatedEnemies.addAll(getDefeatedEnemies(enemies, sc));
@@ -285,13 +284,15 @@ public class BattleManager {
                     if (enemies.length == 0) {
                         battleWonEvent(player, totalBattleXp, sc);
                         battleOngoing = false;
-                        break;
+                        return 1;
                     }
                 }
             }
             turnCounter++;
 
         }
+
+        return 2;
 
     }
 

@@ -4,23 +4,14 @@ package Classes.Core;
 import Classes.Entity.Character;
 
 public class Move {
-    private int id;
     private String name;
-    private int power;
-    private int accuracy;
-    private int type;
+    private int power, accuracy, type;
 
-    public Move(String name, int power, int type, int id, int accuracy) {
-        this.setName(name);
-        this.setPower(power);
-        this.setType(type);
-        this.setId(id);
-        this.setAccuracy(accuracy);
-    }
-
-    @Override
-    public int hashCode() {
-        return getId();
+    public Move(String name, int power, int type, int accuracy) {
+        this.name = name;
+        this.power = power;
+        this.type = type;
+        this.accuracy = accuracy;
     }
 
     public String getName() {
@@ -36,14 +27,6 @@ public class Move {
 
         target.updateHp(damage * -1);
         return damage;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setName(String name) {

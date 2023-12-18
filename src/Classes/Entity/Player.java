@@ -8,8 +8,8 @@ public class Player extends Character {
     private int totalXP, XPTillLvl;
     private int currency = 0;
 
-    public Player(String name, int maxHP, int maxMP, int str, int def, int speed, ArrayList<Move> moves) {
-        super(name, maxHP, maxMP, str, def, speed, moves);
+    public Player(String name, int maxHP, int maxMP, int str, int def, int speed) {
+        super(name, maxHP, maxMP, str, def, speed);
         this.totalXP = CalculateXPTillLvl(this.getLvl());
         this.XPTillLvl = CalculateXPTillLvl(this.getLvl() + 1);
     }

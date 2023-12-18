@@ -53,11 +53,11 @@ public class Item {
                 case "HP" -> character.updateHp(value);
                 case "MP" -> character.updateMp(value);
                 case "STR" -> character.updateStr(value);
-                case "DF" -> character.updateDef(value);
-                case "SPD" -> character.setSpeed(value);
-                case "BATTLE_STR" -> character.updatBattleStr(value);
-                case "BATTLE_SPEED" -> character.setBattleSpeed(value);
-                case "BATTLE_DEF" -> character.setBattleDef(value);
+                case "DEF" -> character.updateDef(value);
+                case "SPD" -> character.updateSpd(value);
+                case "BATTLE_STR" -> character.updateBattleStr(value);
+                case "BATTLE_SPEED" -> character.updateBattleSpeed(value);
+                case "BATTLE_DEF" -> character.updatebattleDef(value);
             }
         });
 

@@ -1,9 +1,11 @@
 package Classes.Core;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class Utility {
+public final class Utility {
+
     private static final String CHOOSE_MESSAGE = "Choose an option :";
     public static final String PRESS_ENTER_MESSAGE = Color.RED.getColor() + "Press enter to continue...." + Color.RESET.getColor();
 
@@ -35,7 +37,10 @@ public class Utility {
         System.out.flush();
         System.out.print("\033[H\033[2J");
     }
-
+    public static void waitForEnter(Scanner sc) {
+        slowPrint(Utility.PRESS_ENTER_MESSAGE, 10);
+        sc.nextLine();
+    }
     public static void slowPrint(String s, int delay) {
         int textSpeedDelay = (int) (Data.getGameSpeed() * delay);
         for (char c : s.toCharArray()) {
@@ -48,60 +53,25 @@ public class Utility {
         }
     }
 
-    public static int optionsMenu(String[] options, Scanner sc, boolean back) {
-        int choice = 0, n = options.length;
-        boolean valid = false;
-
-        System.out.println();
-
-
-        while (!valid) {
-            clearTerminal();
-            printTitle(CHOOSE_MESSAGE);
-            for (int i = 0; i < n; i++)
-                System.out.println((i + 1) + ". " + options[i]);
-
-            if (back)
-                System.out.println((n + 1) + ". back");
-
-            System.out.printf("\nEnter a valid option (%d to %d) : ", 1, back ? n + 1 : n);
-
-            try {
-                choice = sc.nextInt();
-
-                if (back && choice == n + 1)
-                    return -1;
-
-                if (choice > 0 && choice <= n)
-                    valid = true;
-
-                else {
-                    sc.nextLine();
-
-                    System.out.printf(Color.RED.getColor() + "Invalid choice! Please enter a number between 1 and %d!\n" + Color.RESET.getColor() + PRESS_ENTER_MESSAGE, back ? n + 1 : n);
-                    sc.nextLine();
-                }
-            } catch (Exception e) {
-                sc.nextLine();
-                System.out.print(Color.RED.getColor() + "Invalid input! Please enter a number only!\n" + Color.RESET.getColor() + PRESS_ENTER_MESSAGE);
-                sc.nextLine();
-
-            }
-        }
-        return choice;
+    public static int printOptionsMenu(String[] options, Scanner sc) {
+        return optionsMenu(options, sc, false, getStringAsTitle(CHOOSE_MESSAGE) + "\n");
+    }
+    public static int printOptionsMenu(String[] options, Scanner sc, boolean back) {
+        return optionsMenu(options, sc, back, getStringAsTitle(CHOOSE_MESSAGE) + "\n");
+    }
+    public static int printOptionsMenu(String[] options, Scanner sc, boolean back, String message) {
+        return optionsMenu(options, sc, back, message + "\n" + getStringAsTitle(CHOOSE_MESSAGE) + "\n");
     }
 
-    public static int optionsMenu(String[] options, Scanner sc, boolean back, String Message) {
+    private static int optionsMenu(String[] options, Scanner sc, boolean back, String Message) {
         int choice = 0, n = options.length;
         boolean valid = false;
 
         System.out.println();
-
 
         while (!valid) {
             clearTerminal();
             System.out.println(Message);
-            printTitle(CHOOSE_MESSAGE);
             for (int i = 0; i < n; i++)
                 System.out.println((i + 1) + ". " + options[i]);
 
@@ -112,36 +82,36 @@ public class Utility {
             try {
                 choice = sc.nextInt();
 
-                if (back && choice == n + 1)
+                if (back && choice == n + 1){
+                    sc.nextLine();
                     return -1;
+                }
 
                 if (choice > 0 && choice <= n)
                     valid = true;
 
                 else {
                     sc.nextLine();
-                    System.out.printf(Color.RED.getColor() + "Invalid choice! Please enter a number between 1 and %d!\n" + Color.RESET.getColor() + PRESS_ENTER_MESSAGE, back ? n + 1 : n);
-                    sc.nextLine();
+                    System.out.printf(Color.RED.getColor() + "Invalid choice! Please enter a number between 1 and %d!" + Color.RESET.getColor(), back ? n + 1 : n);
+                    waitForEnter(sc);
                 }
-            } catch (Exception e) {
+            } catch (InputMismatchException e) {
                 sc.nextLine();
-                System.out.print(Color.RED.getColor() + "Invalid input! Please enter a number only!\n" + Color.RESET.getColor() + PRESS_ENTER_MESSAGE);
-                sc.nextLine();
+                System.out.print(Color.RED.getColor() + "Invalid input! Please enter a number only!" + Color.RESET.getColor());
+                waitForEnter(sc);
 
             }
         }
+        sc.nextLine();
         return choice;
     }
 
-    public static void printTitle(String msg) {
-        for (int i = 0; i < msg.length(); i++)
-            System.out.print("=");
+    public static String getStringAsTitle(String msg) {
 
-        System.out.println("\n" + msg);
-
-        for (int i = 0; i < msg.length(); i++)
-            System.out.print("=");
-
-        System.out.println();
+        return "=".repeat(msg.length()) +
+                "\n" +
+                msg +
+                "\n" +
+                "=".repeat(msg.length());
     }
 }

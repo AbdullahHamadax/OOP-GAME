@@ -4,14 +4,12 @@ import java.util.*;
 
 public abstract class Event {
      private final String eventName;
-     protected Scanner sc;
      protected int id;
-     public Event(String eventName, Scanner sc) {
+     public Event(String eventName) {
          this.eventName = eventName;
-         this.sc= sc;
      }
 
 
-     public abstract Event start();
+     public abstract Event start(Scanner sc);
 
  }

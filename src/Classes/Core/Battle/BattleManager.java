@@ -1,4 +1,4 @@
-package Classes.Core;
+package Classes.Core.Battle;
 
 import Classes.Entity.Character;
 import Classes.Entity.Enemy;
@@ -11,15 +11,28 @@ import static Classes.Core.Utility.*;
 import static java.lang.Math.max;
 
 public class BattleManager {
-    String[] playerActions = new String[]{"Fight", "Observe", "Surrender", "Use item"};
+    Map<String, ActionStrategy> playerActions;
+    private final Scanner sc;
 
+    public BattleManager(Scanner sc){
+        this.sc = sc;
+        playerActions = new LinkedHashMap<>();
+        playerActions.put("Fight", new FightAction());
+        playerActions.put("Observe", new ObserveAction());
+        playerActions.put("Surrender", new SurrenderAction());
+        playerActions.put("Use item", new ItemAction());
+
+    }
+
+    // will be fixed
     public static String constructString(String s, int width) {
-        StringBuilder output = new StringBuilder(" ".repeat(width - 2));
-        int start = width / 2 - s.length() / 2;
+        StringBuilder output = new StringBuilder(" ".repeat(width ));
+        int start = width / 2 - s.length() / 2 ;
+
         for (int i = start, j = 0; j < s.length(); i++, j++)
             output.setCharAt(i, s.charAt(j));
-
         return output.toString();
+
     }
 
     private int checkIfBattleStatus(Character player, Character[] enemies) {
@@ -37,7 +50,7 @@ public class BattleManager {
                 .map(String::length)
                 .max(Integer::compareTo);
 
-        int width = (int) (max(player.getName().length(), longestName.get()) * 1.5 + 5);
+        int width = longestName.map(integer -> (int) (max(player.getName().length(), integer) * 1.5 + 5)).orElse(10);
         StringBuilder message = new StringBuilder();
 
         String[] playerSection = new String[3];
@@ -45,7 +58,7 @@ public class BattleManager {
 
         message.append("*".repeat(12)).append("\n");
         message.append("Turn : ").append(turn).append("\n");
-        message.append("*".repeat(width * enemies.length + 1)).append("\n");
+        message.append("*".repeat(width * enemies.length + enemies.length + enemies.length - 1)).append("\n");
 
         playerSection[0] = constructString(String.format("%s", player.getName()), width);
         playerSection[1] = constructString(String.format("HP: %d/%d", player.getHp(), player.getMaxHP()), width);
@@ -67,7 +80,7 @@ public class BattleManager {
             }
             message.append("\n");
         }
-        message.append("*".repeat(width * enemies.length + 1));
+        message.append("*".repeat(width * enemies.length + enemies.length + enemies.length - 1));
         message.append("\n");
 
 
@@ -79,116 +92,22 @@ public class BattleManager {
         return message.toString();
     }
 
-    private void printCharacterStats(Character character, Scanner sc) {
-        clearTerminal();
-        System.out.println(character.getName());
-        // will continue it later too lazy (someone else do it for me)
-        sc.nextLine();
-        System.err.print(PRESS_ENTER_MESSAGE);
-        sc.nextLine();
-    }
-
-    private void playerTurn(Player player, Scanner sc, Enemy[] enemies, String currentStats) {
+    private void playerTurn(Player player, Enemy[] enemies, String currentStats) {
         boolean notDone = true;
         int choice;
 
         while (notDone) {
 
-            choice = optionsMenu(playerActions, sc, false, currentStats);
+            String[] playerActionsNames = playerActions.keySet().toArray(String[]::new);
+            choice = printOptionsMenu(playerActionsNames, sc, false, currentStats);
 
-            boolean event = false;
-            switch (choice) {
-                case 1 -> event = playerFightAction(player, enemies, sc);
-                case 2 -> event = playerObserveAction(player, enemies, sc);
-                case 3 -> event = playerSurrenderAction(player, sc);
-                case 4 -> System.out.println("Coming soon!!");
+            boolean event = playerActions.get(playerActionsNames[choice - 1])
+                    .execute(player, enemies, sc);
 
-            }
             if (event)
                 notDone = false;
         }
     }
-
-    //return true to determine end of turn, false in case of back
-    private boolean playerFightAction(Player player, Enemy[] enemies, Scanner sc) {
-
-        int choice, target = 0;
-        String[] moveNames = player.moves.stream().map(Move::getName).toArray(String[]::new);
-
-        choice = optionsMenu(moveNames, sc, true);
-        if (choice == -1)
-            return false;
-
-        choice--;
-
-        if (enemies.length > 1)
-            target = selectTarget(enemies, sc);
-
-        if (target == -1)
-            return false;
-
-        System.out.printf("%s chose to use %s on %s\n", player.getName(), player.moves.get(choice).getName(), enemies[target].getName());
-        int value = player.use(enemies[target], player.moves.get(choice));
-
-        if (value == -1)
-            System.out.println("It was a total miss!");
-
-        else
-            System.out.printf("It dealt %d points of damage\n", value);
-        System.err.print(PRESS_ENTER_MESSAGE);
-        sc.nextLine();
-        return true;
-    }
-
-    private boolean playerObserveAction(Player player, Enemy[] enemies, Scanner sc) {
-        int choice;
-
-        String[] options = new String[1 + enemies.length];
-        options[0] = "Current stats";
-        for (int i = 1; i < options.length; i++)
-            options[i] = enemies[i - 1].getName() + "'s stats";
-
-        choice = optionsMenu(options, sc, true);
-        if (choice == -1)
-            return false;
-
-        if (choice == 1)
-            printCharacterStats(player, sc);
-
-        else
-            printCharacterStats(enemies[choice - 2], sc);
-
-        return false;
-    }
-
-    private boolean playerSurrenderAction(Player player, Scanner sc) {
-        player.setHp(-1);
-        System.out.println(Color.MAGENTA.getColor() + "The battle-worn adventurer " + player.getName() + " raises their hands in surrender.");
-
-        System.err.print(PRESS_ENTER_MESSAGE);
-        sc.nextLine();
-
-        return true;
-    }
-
-    private boolean playerUseItemAction(Player player, Scanner sc) {
-        return true;
-    }
-
-
-    private int selectTarget(Enemy[] enemies, Scanner sc) {
-        String message = "Select ENEMY TO ATTACK!";
-        String[] enemyNames = Arrays.stream(enemies).map(Enemy::getName).toArray(String[]::new);
-
-
-        int choice = optionsMenu(enemyNames, sc, true, message);
-        if (choice == -1)
-            return -1;
-
-        return choice - 1;
-
-    }
-
     private void enemyTurn(Enemy enemy, Scanner sc, Player player, Random random, String battleMessage) {
         int choice;
 
@@ -204,8 +123,7 @@ public class BattleManager {
         else
             System.out.printf("it dealt %d points of damage\n", value);
 
-        System.err.print(PRESS_ENTER_MESSAGE);
-        sc.nextLine();
+        waitForEnter(sc);
     }
 
     public int initiateBattle(Player player, Enemy[] enemies, Scanner sc, Random random) {
@@ -220,9 +138,9 @@ public class BattleManager {
     private int createBattle(Player player, Enemy[] enemies, Scanner sc, Random random) {
 
         clearTerminal();
-
-        boolean battleOngoing = true;
         Character[] battleChars = new Character[1 + enemies.length];
+
+        enemies = Arrays.stream(enemies).map(Enemy::clone).toArray(Enemy[]::new);
 
         Set<Character> defeatedEnemies = new HashSet<>();
 
@@ -242,16 +160,15 @@ public class BattleManager {
         }
 
 
-        printTitle(battleTitle);
+        System.out.println(getStringAsTitle(battleTitle));
 
-        System.out.print(PRESS_ENTER_MESSAGE);
-        sc.nextLine();
+        waitForEnter(sc);
 
         for (Character chara : battleChars)
             chara.enterBattleState();
 
 
-        while (battleOngoing) {
+        while (true) {
 
             Arrays.sort(battleChars, Comparator.comparingInt(Character::getBattleSpeed).reversed());
             for (Character entity : battleChars) {
@@ -261,9 +178,9 @@ public class BattleManager {
 
                 clearTerminal();
                 String currentStatsMessage = printCurrentBattleStats(player, enemies, turnCounter);
+
                 if (entity == player) {
-                    playerTurn(player, sc, enemies, currentStatsMessage);
-                    sc.nextLine();
+                    playerTurn(player, enemies, currentStatsMessage);
                 } else
                     enemyTurn((Enemy) entity, sc, player, random, currentStatsMessage);
 
@@ -272,7 +189,6 @@ public class BattleManager {
                 if (result == 1) {
                     clearTerminal();
                     battleLostEvent(player, totalBattleXp, sc);
-                    battleOngoing = false;
                     return 0;
                 } else if (result == 2) {
                     clearTerminal();
@@ -283,7 +199,6 @@ public class BattleManager {
 
                     if (enemies.length == 0) {
                         battleWonEvent(player, totalBattleXp, sc);
-                        battleOngoing = false;
                         return 1;
                     }
                 }
@@ -291,9 +206,6 @@ public class BattleManager {
             turnCounter++;
 
         }
-
-        return 2;
-
     }
 
     private Set<Character> getDefeatedEnemies(Enemy[] enemies, Scanner sc) {
@@ -302,8 +214,8 @@ public class BattleManager {
 
         for (Character enemy : defeatedEnemies) {
             System.out.printf("%s was defeated\n", enemy.getName());
-            System.out.print(PRESS_ENTER_MESSAGE);
-            sc.nextLine();
+            waitForEnter(sc);
+
         }
 
 
@@ -316,8 +228,7 @@ public class BattleManager {
         player.updateTotalXP(xpGained);
         System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained, player.getXPTillLvl() - player.getTotalXP(), player.getLvl() + 1);
 
-        System.err.print(PRESS_ENTER_MESSAGE);
-        sc.nextLine();
+        waitForEnter(sc);
 
     }
 
@@ -330,8 +241,7 @@ public class BattleManager {
 
         player.restore();
 
-        System.err.print(PRESS_ENTER_MESSAGE);
-        sc.nextLine();
+        waitForEnter(sc);
 
     }
 }

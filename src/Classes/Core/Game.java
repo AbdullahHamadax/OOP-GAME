@@ -22,7 +22,7 @@ public class Game {
     private final ArrayList<Item> items;
 
     public void textSpeed(Scanner sc){
-        int textSpeedChoice=optionsMenu(options,sc,false);
+        int textSpeedChoice= printOptionsMenu(options,sc,false);
         switch (textSpeedChoice){
             case 1 -> {
                 System.out.println("The text speed of the game is now on "+Color.RED.getColor()+"Slow"+Color.RESET.getColor());
@@ -53,7 +53,7 @@ public class Game {
             slowPrint(WELCOME_MESSAGE,1); // origianl value is 48 but this is for fast testing!!
             clearTerminal();
 
-            choice = optionsMenu(options, sc, false);
+            choice = printOptionsMenu(options, sc, false);
 
             switch (choice) {
                 case 1 -> startGame(sc);
@@ -66,63 +66,10 @@ public class Game {
         }
     }
 
-    private void initMovesTable() {
-        this.movesTable.put("Punch", new Move("Punch", 5, 0, 0, 90));
-        this.movesTable.put("Kick", new Move("Kick", 7, 0, 1, 75));
-        this.movesTable.put("Slap", new Move("Slap", 3, 0, 2, 100));
-        this.movesTable.put("Scratch", new Move("Scratch", 3, 0, 0, 95));
-        this.movesTable.put("Bite", new Move("Bite", 2, 0, 3, 65));
-    }
-
     private void initItemsTable() {
 
     }
 
-    private Player initPlayer() {
-        ArrayList<Move> moves = new ArrayList<>();
-
-        moves.add(this.movesTable.get("Punch"));
-        moves.add(this.movesTable.get("Kick"));
-        moves.add(this.movesTable.get("Slap"));
-
-        return new Player("jack", 80, 20, 10, 10, 20, moves);
-    }
-
-    private Enemy initEasyEnemy(int playerLvl) {
-        ArrayList<Move> moves = new ArrayList<>();
-        double lvlMultiplier = playerLvl * 0.15 + 1;
-
-        moves.add(this.movesTable.get("Bite"));
-        moves.add(this.movesTable.get("Scratch"));
-
-        return new Enemy("Margit the Fell Omen", (int) (2 * lvlMultiplier), (int) (10 * lvlMultiplier),
-                (int) (5 * lvlMultiplier), (int) (5 * lvlMultiplier), (int) (5 * lvlMultiplier), moves, (int) (5 * lvlMultiplier));
-
-    }
-
-    private Enemy initHardEnemy(int playerLvl) {
-        ArrayList<Move> moves = new ArrayList<>();
-        double lvlMultiplier = playerLvl * 0.15 + 1;
-
-        moves.add(this.movesTable.get("Punch"));
-        moves.add(this.movesTable.get("Kick"));
-        moves.add(this.movesTable.get("Slap"));
-        moves.add(this.movesTable.get("Scratch"));
-
-        return new Enemy("Malgrim the Cursed Oracle", (int) (50 * lvlMultiplier), (int) (30 * lvlMultiplier), (int) (10 * lvlMultiplier),
-                (int) (10 * lvlMultiplier), (int) (8 * lvlMultiplier), moves, (int) (15 * lvlMultiplier));
-    }
-
-
-    private void startMultiEnemy(Player player, Scanner sc, Random random, BattleManager battleManager, int playerLvl) {
-        Enemy easy = initEasyEnemy(playerLvl);
-        Enemy hard = initHardEnemy(playerLvl);
-        Enemy easy2 = initEasyEnemy(playerLvl);
-
-        easy2.setName("TESTSJSJ");
-        Enemy[] arr = {easy, hard, easy2};
-        battleManager.initiateBattle(player, arr, sc, random);
-    }
 
     private void shop(Scanner in, Player player) {
         Item healingElixir = new Item("Healing Elixir", "Restores a moderate amount of health", 50);
@@ -182,29 +129,27 @@ public class Game {
 
     private void startGame(Scanner sc) {
         int choice;
-        BattleManager battleManager = new BattleManager();
+//        BattleManager battleManager = new BattleManager();
         String[] Options = new String[]{"Battle (easy)", "Battle (hard)", "Shop", "Current stats", "multi Enemy Battle test", "Main menu"};
         Random random = new Random(System.currentTimeMillis());
+        GameManager gameManager = new GameManager(sc);
 
-        initMovesTable();
-        Player player = initPlayer();
+        Player player = gameManager.getPlayer();
+        gameManager.start();
 
-        while (true) {
-            clearTerminal();
-
-            choice = optionsMenu(Options, sc, false);
-
-            switch (choice) {
-                case 1 -> battleManager.initiateBattle(player, this.initEasyEnemy(player.getLvl()), sc, random);
-                case 2 -> battleManager.initiateBattle(player, this.initHardEnemy(player.getLvl()), sc, random);
-                case 3 -> shop(sc, player);
-                case 4 -> printStats(player);
-                case 5 -> startMultiEnemy(player, sc, random, battleManager, player.getLvl());
-                case 6 -> {
-                    return;
-                }
-            }
-
-        }
+//        while (true) {
+//            clearTerminal();
+//
+//            choice = printOptionsMenu(Options, sc, false);
+//
+//            switch (choice) {
+//                case 1 -> shop(sc, player);
+//                case 2 -> printStats(player);
+//                case 3 -> {
+//                    return;
+//                }
+//            }
+//
+//        }
     }
 }

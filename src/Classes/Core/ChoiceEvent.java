@@ -1,17 +1,15 @@
 package Classes.Core;
 
-import org.w3c.dom.events.EventTarget;
-
 import java.util.Scanner;
 
 public class ChoiceEvent extends Event {
-    Scanner sc = new Scanner(System.in);
     Event[] nextEvents ;
     String choiceMessage;
     String[] choices;
 
-    public ChoiceEvent(String eventName, Scanner sc, String choices[]) {
-        super(eventName, sc);
+    public ChoiceEvent(String eventName, String choiceMessage, String[] choices) {
+        super(eventName);
+        this.choiceMessage = choiceMessage;
         this.choices=choices;
     }
 
@@ -25,12 +23,12 @@ public class ChoiceEvent extends Event {
     }
 
     @Override
-    public Event start() {
+    public Event start(Scanner sc) {
         for (String line : choices) {
             Utility.slowPrint(line , 5);
             System.out.println();
         }
-        int choice = Utility.optionsMenu(new String[]{"Enter the Portal of Shadows","Enter the Portal of Radiance"}, sc, false);
+        int choice = Utility.printOptionsMenu(new String[]{"Enter the Portal of Shadows","Enter the Portal of Radiance"}, sc, false);
         if(choice==1) System.out.println("Entered Portal Of Shadows");
         else System.out.println("Entered Portal Of Radiance");
         return nextEvents[choice-1];

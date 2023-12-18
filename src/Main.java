@@ -1,6 +1,7 @@
 import Classes.Core.ChoiceEvent;
 import Classes.Core.DialogueEvent;
 import Classes.Core.Game;
+import Classes.Core.SingletonScanner;
 
 import java.awt.*;
 import java.util.*;
@@ -8,9 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game();
-        Scanner sc = new Scanner(System.in);
+        SingletonScanner sc = SingletonScanner.getInstance();
 
-        game.initialize(sc);
+        game.initialize(sc.getScanner());
 
 //        String [] lines =new String[]{
 //                "Narrator: The sun dipped below the horizon, casting long shadows upon the cobblestone streets of the ancient town of Eldoria. The once lively market square now stood empty, the air thick with an eerie silence. Two brave heroes, Sir Tristan and Lady Seraphina, ventured into the heart of the abandoned town, their senses alert to the ominous stillness.",

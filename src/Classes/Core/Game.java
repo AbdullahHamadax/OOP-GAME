@@ -1,6 +1,5 @@
 package Classes.Core;
 
-import Classes.Entity.Enemy;
 import Classes.Entity.Item;
 import Classes.Entity.Player;
 
@@ -18,8 +17,6 @@ public class Game {
     String[] options = new String[]{"Slow","Fast","Medium"};
 
 
-    private final HashMap<String, Move> movesTable;
-    private final ArrayList<Item> items;
 
     public void textSpeed(Scanner sc){
         int textSpeedChoice= printOptionsMenu(options,sc,false);
@@ -65,11 +62,6 @@ public class Game {
             }
         }
     }
-
-    private void initItemsTable() {
-
-    }
-
 
     private void shop(Scanner in, Player player) {
         Item healingElixir = new Item("Healing Elixir", "Restores a moderate amount of health", 50);

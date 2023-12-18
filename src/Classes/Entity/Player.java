@@ -1,8 +1,5 @@
 package Classes.Entity;
 
-import Classes.Core.Move;
-
-import java.util.ArrayList;
 
 public class Player extends Character {
     private int totalXP, XPTillLvl;

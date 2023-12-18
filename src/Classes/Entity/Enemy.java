@@ -1,8 +1,5 @@
 package Classes.Entity;
 
-import Classes.Core.Move;
-
-import java.util.ArrayList;
 
 public class Enemy extends Character implements Cloneable {
     private int xpValue;

@@ -26,7 +26,7 @@ public class BattleManager {
 
     // will be fixed
     public static String constructString(String s, int width) {
-        StringBuilder output = new StringBuilder(" ".repeat(width ));
+        StringBuilder output = new StringBuilder(" ".repeat(width));
         int start = width / 2 - s.length() / 2 ;
 
         for (int i = start, j = 0; j < s.length(); i++, j++)
@@ -35,52 +35,59 @@ public class BattleManager {
 
     }
 
-    private int checkIfBattleStatus(Character player, Character[] enemies) {
+    private int checkIfBattleStatus(Character player, ArrayList<Enemy> enemies) {
         if (player.getHp() == 0)
             return 1;
 
-        return Arrays.stream(enemies).anyMatch((enemy) -> enemy.getHp() == 0) ? 2 : 0;
+        for(Enemy enemy : enemies){
+            if(enemy.getHp() == 0)
+                return 2;
+        }
+
+        return 0;
 
     }
 
-    private String printCurrentBattleStats(Player player, Enemy[] enemies, int turn) {
+    private String printCurrentBattleStats(Player player, ArrayList<Enemy> enemies, int turn) {
 
-        Optional<Integer> longestName = Arrays.stream(enemies)
-                .map(Character::getName)
-                .map(String::length)
-                .max(Integer::compareTo);
+        int longestName = 10;
 
-        int width = longestName.map(integer -> (int) (max(player.getName().length(), integer) * 1.5 + 5)).orElse(10);
+        for (Enemy enemy : enemies) {
+            if (enemy.getName().length() > longestName)
+                longestName = enemy.getName().length();
+        }
+
+        int width = (int)(longestName * 1.5) + 5;
         StringBuilder message = new StringBuilder();
 
         String[] playerSection = new String[3];
-        String[][] enemySection = new String[enemies.length][3];
+        String[][] enemySection = new String[enemies.size()][3];
 
         message.append("*".repeat(12)).append("\n");
         message.append("Turn : ").append(turn).append("\n");
-        message.append("*".repeat(width * enemies.length + enemies.length + enemies.length - 1)).append("\n");
+        message.append("*".repeat(width * enemies.size() + enemies.size() + enemies.size() - 1)).append("\n");
 
         playerSection[0] = constructString(String.format("%s", player.getName()), width);
         playerSection[1] = constructString(String.format("HP: %d/%d", player.getHp(), player.getMaxHP()), width);
         playerSection[2] = constructString(String.format("SP: %d/%d", player.getMp(), player.getMaxMP()), width);
 
-        for (int i = 0; i < enemies.length; i++) {
-            enemySection[i][0] = constructString(String.format("%s", enemies[i].getName()), width);
-            enemySection[i][1] = constructString(String.format("HP: %d/%d", enemies[i].getHp(), enemies[i].getMaxHP()), width);
-            enemySection[i][2] = constructString(String.format("SP: %d/%d", enemies[i].getMp(), enemies[i].getMaxMP()), width);
+        for (int i = 0; i < enemies.size(); i++) {
+            enemySection[i][0] = constructString(String.format("%s", enemies.get(i).getName()), width);
+            enemySection[i][1] = constructString(String.format("HP: %d/%d", enemies.get(i).getHp(), enemies.get(i).getMaxHP()), width);
+            enemySection[i][2] = constructString(String.format("SP: %d/%d", enemies.get(i).getMp(), enemies.get(i).getMaxMP()), width);
         }
 
 
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < enemies.length; j++) {
-                if (j == enemies.length - 1)
+            for (int j = 0; j < enemies.size(); j++) {
+                if (j == enemies.size() - 1)
                     message.append(enemySection[j][i]);
                 else
                     message.append(enemySection[j][i]).append("||");
             }
             message.append("\n");
         }
-        message.append("*".repeat(width * enemies.length + enemies.length + enemies.length - 1));
+        message.append("*".repeat(width * enemies.size() + enemies.size() + enemies.size() - 1));
         message.append("\n");
 
 
@@ -92,7 +99,7 @@ public class BattleManager {
         return message.toString();
     }
 
-    private void playerTurn(Player player, Enemy[] enemies, String currentStats) {
+    private void playerTurn(Player player, ArrayList<Enemy> enemies, String currentStats) {
         boolean notDone = true;
         int choice;
 
@@ -134,29 +141,37 @@ public class BattleManager {
         return createBattle(player, new Enemy[]{enemy}, sc, random);
     }
 
-    // fix formatting (still happens in idea but works fine in terminal, will fix tho)
-    private int createBattle(Player player, Enemy[] enemies, Scanner sc, Random random) {
+    private int createBattle(Player player, Enemy[] enemiesBase, Scanner sc, Random random) {
 
         clearTerminal();
-        Character[] battleChars = new Character[1 + enemies.length];
+        int totalEnemiesCount = enemiesBase.length;
+        ArrayList<Character> battleChars = new ArrayList<>(1 + totalEnemiesCount);
 
-        enemies = Arrays.stream(enemies).map(Enemy::clone).toArray(Enemy[]::new);
+        ArrayList<Enemy> enemies = new ArrayList<>(totalEnemiesCount);
+        for (Enemy value : enemiesBase)
+            enemies.add(value.clone());
 
-        Set<Character> defeatedEnemies = new HashSet<>();
+        ArrayList<Character> allDefeatedEnemies = new ArrayList<>();
 
-        int totalBattleXp = Arrays.stream(enemies).map(Enemy::getXpValue).reduce(0, Integer::sum);
+        int totalBattleXp = 0;
+        for(Enemy enemy : enemies){
+            totalBattleXp += enemy.getXpValue();
+        }
 
-        battleChars[0] = player;
-        System.arraycopy(enemies, 0, battleChars, 1, battleChars.length - 1);
+        battleChars.add(player);
+
+        for (Enemy enemy : enemies)
+            battleChars.add(enemy);
+
 
         int turnCounter = 1;
 
         String battleTitle = String.format("%s%s%s vs %s%s%s",
-                Color.BLUE.getColor(), player.getName(), Color.RESET.getColor(), Color.RED.getColor(), enemies[0].getName(), Color.RESET.getColor());
+                Color.BLUE.getColor(), player.getName(), Color.RESET.getColor(), Color.RED.getColor(), enemies.get(0).getName(), Color.RESET.getColor());
 
-        if (enemies.length > 1) {
+        if (enemies.size() > 1) {
             battleTitle = String.format("%s%s%s vs %s%d%s Enemies",
-                    Color.BLUE.getColor(), player.getName(), Color.RESET.getColor(), Color.RED.getColor(), enemies.length, Color.RESET.getColor());
+                    Color.BLUE.getColor(), player.getName(), Color.RESET.getColor(), Color.RED.getColor(), enemies.size(), Color.RESET.getColor());
         }
 
 
@@ -170,10 +185,10 @@ public class BattleManager {
 
         while (true) {
 
-            Arrays.sort(battleChars, Comparator.comparingInt(Character::getBattleSpeed).reversed());
+            battleChars.sort(Comparator.comparingInt(Character::getBattleSpeed).reversed());
             for (Character entity : battleChars) {
 
-                if (defeatedEnemies.contains(entity))
+                if (allDefeatedEnemies.contains(entity))
                     continue;
 
                 clearTerminal();
@@ -192,15 +207,24 @@ public class BattleManager {
                     return 0;
                 } else if (result == 2) {
                     clearTerminal();
-                    defeatedEnemies.addAll(getDefeatedEnemies(enemies, sc));
+                    ArrayList<Enemy> defeatedEnemiesThisTurn = getDefeatedEnemies(enemies, sc);
 
-                    enemies = Arrays.stream(enemies).filter(enemy -> !defeatedEnemies.contains(enemy)).toArray(Enemy[]::new);
-                    battleChars = Arrays.stream(battleChars).filter(chara -> !defeatedEnemies.contains(chara)).toArray(Character[]::new);
+                    for(Enemy enemy : defeatedEnemiesThisTurn){
+                        if(!allDefeatedEnemies.contains(enemy)){
+                            allDefeatedEnemies.add(enemy);
+                            enemies.remove(enemy);
+                        }
+                    }
 
-                    if (enemies.length == 0) {
+                    if (allDefeatedEnemies.size() == totalEnemiesCount) {
                         battleWonEvent(player, totalBattleXp, sc);
                         return 1;
                     }
+                }
+            }
+            for(int i = 0; i < battleChars.size(); i++){
+                if(allDefeatedEnemies.contains(battleChars.get(i))){
+                    battleChars.remove(battleChars.get(i));
                 }
             }
             turnCounter++;
@@ -208,16 +232,17 @@ public class BattleManager {
         }
     }
 
-    private Set<Character> getDefeatedEnemies(Enemy[] enemies, Scanner sc) {
+    private ArrayList<Enemy> getDefeatedEnemies(ArrayList<Enemy> enemies, Scanner sc) {
 
-        Set<Character> defeatedEnemies = Arrays.stream(enemies).filter((enemy -> enemy.getHp() == 0)).collect(Collectors.toSet());
+        ArrayList<Enemy> defeatedEnemies = new ArrayList<>();
 
-        for (Character enemy : defeatedEnemies) {
-            System.out.printf("%s was defeated\n", enemy.getName());
-            waitForEnter(sc);
-
+        for(Enemy enemy : enemies){
+            if(enemy.getHp() == 0){
+                defeatedEnemies.add(enemy);
+                System.out.printf("%s was defeated\n", enemy.getName());
+                waitForEnter(sc);
+            }
         }
-
 
         return defeatedEnemies;
     }
@@ -226,7 +251,8 @@ public class BattleManager {
 
         System.out.printf("Battle is over! %s won!\n", player.getName());
         player.updateTotalXP(xpGained);
-        System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained, player.getXPTillLvl() - player.getTotalXP(), player.getLvl() + 1);
+        System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(),
+                xpGained, player.getXPTillLvl() - player.getTotalXP(), player.getLvl() + 1);
 
         waitForEnter(sc);
 
@@ -237,7 +263,8 @@ public class BattleManager {
         xpGained = max(xpGained / 2, 1);
         System.out.printf("Battle is over! %s lost!\n", player.getName());
         player.updateTotalXP(xpGained);
-        System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained, player.getXPTillLvl() - player.getTotalXP(), player.getLvl() + 1);
+        System.out.printf("%s gained %d xp! he needs %d more xp to reach level %d\n", player.getName(), xpGained,
+                player.getXPTillLvl() - player.getTotalXP(), player.getLvl() + 1);
 
         player.restore();
 

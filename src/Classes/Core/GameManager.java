@@ -49,7 +49,7 @@ public class GameManager {
     }
 
     private Player initPlayer(){
-        Player player = new Player("jack", 80, 20, 10, 10, 20);
+        Player player = new Player("jack", 200, 60, 25, 40, 20);
         player.moves.add(moves.get("Tackle"));
         player.moves.add(moves.get("Slap"));
         player.moves.add(moves.get("Bite"));

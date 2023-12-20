@@ -5,19 +5,20 @@ import Classes.Entity.Character;
 import Classes.Entity.Enemy;
 import Classes.Entity.Player;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static Classes.Core.Utility.*;
 
 public class ObserveAction extends ActionStrategy{
     @Override
-    protected boolean execute(Player player, Enemy[] enemies, Scanner sc) {
+    protected boolean execute(Player player, ArrayList<Enemy> enemies, Scanner sc) {
         int choice;
 
-        String[] options = new String[1 + enemies.length];
+        String[] options = new String[1 + enemies.size()];
         options[0] = "Current stats";
         for (int i = 1; i < options.length; i++)
-            options[i] = enemies[i - 1].getName() + "'s stats";
+            options[i] = enemies.get(i - 1).getName() + "'s stats";
 
         choice = printOptionsMenu(options, sc, true);
         if (choice == -1)
@@ -27,7 +28,7 @@ public class ObserveAction extends ActionStrategy{
             printCharacterStats(player, sc);
 
         else
-            printCharacterStats(enemies[choice - 2], sc);
+            printCharacterStats(enemies.get(choice - 2), sc);
 
         return false;
     }

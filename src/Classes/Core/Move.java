@@ -20,10 +20,15 @@ public class Move {
 
     public int use(Character user, Character target) {
         int damage = (int) (((double) user.getStr() / 10) * getPower()) + 1;
+        int randomAddition = (int) (((1 + Math.random() * 10)/100) * damage);
+
+        damage += randomAddition;
+
         double randomValue = Math.random();
         if (randomValue >= (double) getAccuracy() / 100)
             return -1;
 
+        damage = Math.max(damage - target.getDef()/10, 0);
 
         target.updateHp(damage * -1);
         return damage;

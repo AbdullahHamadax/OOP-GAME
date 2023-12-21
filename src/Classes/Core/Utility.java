@@ -92,12 +92,12 @@ public final class Utility {
 
                 else {
                     sc.nextLine();
-                    System.out.printf(Color.RED.getColor() + "Invalid choice! Please enter a number between 1 and %d!" + Color.RESET.getColor(), back ? n + 1 : n);
+                    System.out.printf(Color.RED.getColor() + "Invalid choice! Please enter a number between 1 and %d!\n" + Color.RESET.getColor(), back ? n + 1 : n);
                     waitForEnter(sc);
                 }
             } catch (InputMismatchException e) {
                 sc.nextLine();
-                System.out.print(Color.RED.getColor() + "Invalid input! Please enter a number only!" + Color.RESET.getColor());
+                System.out.print(Color.RED.getColor() + "Invalid input! Please enter a number only!\n" + Color.RESET.getColor());
                 waitForEnter(sc);
 
             }

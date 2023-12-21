@@ -58,7 +58,7 @@ public class Game {
                 case 1 -> startGame(sc);
                 case 2 -> textSpeed(sc);
                 case 3 -> {
-                    System.out.print(Color.MAGENTA.getColor() + "As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer!"+Color.RESET.getColor());
+                    System.out.println(Color.MAGENTA.getColor() + "As the games fades to black, your legacy will continue to live in the Rogue Realms, farewell brave adventurer!"+Color.RESET.getColor());
                     System.exit(0);
                 }
             }

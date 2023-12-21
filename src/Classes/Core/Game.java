@@ -49,7 +49,7 @@ public class Game {
         String[] options = new String[]{"Start game", "Text Speed","Exit"};
         while (true) {
             System.out.flush();
-            slowPrint(WELCOME_MESSAGE,1); // origianl value is 48 but this is for fast testing!!
+            slowPrint(WELCOME_MESSAGE,48); // original value is 48 but this is for fast testing!!
             clearTerminal();
 
             choice = printOptionsMenu(options, sc, false);

@@ -38,7 +38,7 @@ public final class Utility {
         System.out.print("\033[H\033[2J");
     }
     public static void waitForEnter(Scanner sc) {
-        slowPrint(Utility.PRESS_ENTER_MESSAGE, 10);
+        slowPrint(Utility.PRESS_ENTER_MESSAGE, 15);
         sc.nextLine();
     }
     public static void slowPrint(String s, int delay) {

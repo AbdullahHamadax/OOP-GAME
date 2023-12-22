@@ -1,8 +1,8 @@
-package Classes.Core;
+package Classes.core;
 
-import Classes.Core.Battle.BattleManager;
-import Classes.Entity.Enemy;
-import Classes.Entity.Player;
+import Classes.core.battle.BattleManager;
+import Classes.entity.Enemy;
+import Classes.entity.Player;
 
 import java.util.Random;
 import java.util.Scanner;

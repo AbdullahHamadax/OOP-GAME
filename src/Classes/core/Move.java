@@ -1,7 +1,7 @@
-package Classes.Core;
+package Classes.core;
 
 
-import Classes.Entity.Character;
+import Classes.entity.Character;
 
 public class Move {
     private String name;

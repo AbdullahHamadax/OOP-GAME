@@ -1,12 +1,12 @@
-package Classes.Core.Battle;
+package Classes.core.battle;
 
-import Classes.Core.Utility;
-import Classes.Entity.Enemy;
-import Classes.Entity.Player;
+import Classes.core.Utility;
+import Classes.entity.Enemy;
+import Classes.entity.Player;
 
 import java.util.Scanner;
 
-import static Classes.Core.Utility.waitForEnter;
+import static Classes.core.Utility.waitForEnter;
 
 public class SurrenderAction extends ActionStrategy{
     @Override

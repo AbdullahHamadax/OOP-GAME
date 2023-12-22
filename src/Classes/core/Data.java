@@ -1,4 +1,4 @@
-package Classes.Core;
+package Classes.core;
 
 public class Data {
     private static double gameSpeed = Game.mediumText;

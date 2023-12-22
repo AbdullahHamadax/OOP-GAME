@@ -1,12 +1,13 @@
-package Classes.Core;
+package Classes.core;
 
-import Classes.Core.Battle.BattleManager;
-import Classes.Entity.Enemy;
-import Classes.Entity.Player;
+import Classes.core.battle.BattleManager;
+import Classes.entity.Enemy;
+import Classes.entity.Player;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ public class GameManager {
     private final ArrayList<Event> events;
     private final Player player;
 
+
     public GameManager(Scanner sc) {
         this.sc = sc;
         moves = initMoves();
@@ -28,11 +30,13 @@ public class GameManager {
         events = initEvents();
     }
 
+
     private String[] loadScript(int id){
         List<String> listOfStrings = new ArrayList<>();
 
         try{
-            BufferedReader bf = new BufferedReader(new FileReader(scriptPath + "\\" + id + ".txt"));
+            URL res = this.getClass().getResource("/" + id + ".txt");
+            BufferedReader bf = new BufferedReader(new FileReader(((URL) res).getPath()));
 
             String line = bf.readLine();
 
@@ -58,6 +62,7 @@ public class GameManager {
 
         return player;
     }
+
     private HashMap<String, Move> initMoves(){
         HashMap<String, Move> moves = new HashMap<>();
 

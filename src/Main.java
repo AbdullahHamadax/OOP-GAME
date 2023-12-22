@@ -1,10 +1,6 @@
-import Classes.Core.ChoiceEvent;
-import Classes.Core.DialogueEvent;
-import Classes.Core.Game;
-import Classes.Core.SingletonScanner;
+import Classes.core.Game;
+import Classes.core.SingletonScanner;
 
-import java.awt.*;
-import java.util.*;
 public class Main {
 
     public static void main(String[] args) {

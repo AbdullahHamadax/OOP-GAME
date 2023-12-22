@@ -1,12 +1,12 @@
-package Classes.Core.Battle;
+package Classes.core.battle;
 
-import Classes.Entity.Enemy;
-import Classes.Entity.Player;
+import Classes.entity.Enemy;
+import Classes.entity.Player;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static Classes.Core.Utility.printOptionsMenu;
+import static Classes.core.Utility.printOptionsMenu;
 
 public abstract class ActionStrategy {
 

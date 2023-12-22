@@ -1,8 +1,6 @@
-package Classes.Core;
+package Classes.core;
 
-import Classes.Entity.Enemy;
-
-import java.util.ArrayList;
+import Classes.entity.Enemy;
 
 public class Stage {
     private int EnemyCount;

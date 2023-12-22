@@ -1,4 +1,4 @@
-package Classes.Entity;
+package Classes.entity;
 
 
 public class Player extends Character {

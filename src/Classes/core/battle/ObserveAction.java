@@ -1,13 +1,13 @@
-package Classes.Core.Battle;
+package Classes.core.battle;
 
-import Classes.Core.Utility;
-import Classes.Entity.Character;
-import Classes.Entity.Enemy;
-import Classes.Entity.Player;
+import Classes.core.Utility;
+import Classes.entity.Character;
+import Classes.entity.Enemy;
+import Classes.entity.Player;
 
 import java.util.Scanner;
 
-import static Classes.Core.Utility.*;
+import static Classes.core.Utility.*;
 
 public class ObserveAction extends ActionStrategy{
     @Override

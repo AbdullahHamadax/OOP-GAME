@@ -1,4 +1,7 @@
-package Classes.Core;
+package Classes.core;
+
+import Classes.entity.Player;
+import Classes.entity.Character;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -31,16 +34,19 @@ public final class Utility {
         }
     }
 
-    private Utility() {}
+    private Utility() {
+    }
 
     public static void clearTerminal() {
         System.out.flush();
         System.out.print("\033[H\033[2J");
     }
+
     public static void waitForEnter(Scanner sc) {
         slowPrint(Utility.PRESS_ENTER_MESSAGE, 15);
         sc.nextLine();
     }
+
     public static void slowPrint(String s, int delay) {
         int textSpeedDelay = (int) (Data.getGameSpeed() * delay);
         for (char c : s.toCharArray()) {
@@ -56,12 +62,15 @@ public final class Utility {
     public static int printOptionsMenu(String[] options, Scanner sc) {
         return optionsMenu(options, sc, false, getStringAsTitle(CHOOSE_MESSAGE) + "\n");
     }
+
     public static int printOptionsMenu(String[] options, Scanner sc, boolean back) {
         return optionsMenu(options, sc, back, getStringAsTitle(CHOOSE_MESSAGE) + "\n");
     }
+
     public static int printOptionsMenu(String[] options, Scanner sc, boolean back, String message) {
         return optionsMenu(options, sc, back, message + "\n" + getStringAsTitle(CHOOSE_MESSAGE) + "\n");
     }
+
 
     private static int optionsMenu(String[] options, Scanner sc, boolean back, String Message) {
         int choice = 0, n = options.length;
@@ -82,7 +91,7 @@ public final class Utility {
             try {
                 choice = sc.nextInt();
 
-                if (back && choice == n + 1){
+                if (back && choice == n + 1) {
                     sc.nextLine();
                     return -1;
                 }

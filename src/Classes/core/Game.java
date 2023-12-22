@@ -1,12 +1,12 @@
-package Classes.Core;
+package Classes.core;
 
-import Classes.Entity.Item;
-import Classes.Entity.Player;
+import Classes.entity.Item;
+import Classes.entity.Player;
 
 import java.util.*;
 
-import static Classes.Core.Utility.*;
-import static Classes.Core.Data.*;
+import static Classes.core.Utility.*;
+import static Classes.core.Data.*;
 
 
 public class Game {

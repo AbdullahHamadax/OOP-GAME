@@ -1,12 +1,12 @@
-package Classes.core.battle;
+package classes.core.battle;
 
-import Classes.entity.Enemy;
-import Classes.entity.Item;
-import Classes.entity.Player;
+import classes.entity.Enemy;
+import classes.entity.Item;
+import classes.entity.Player;
 
 import java.util.Scanner;
 
-import static Classes.core.Utility.printOptionsMenu;
+import static classes.core.Utility.printOptionsMenu;
 
 public class ItemAction extends ActionStrategy{
     @Override

@@ -1,6 +1,6 @@
-package Classes.core;
+package classes.core;
 
-import Classes.entity.Enemy;
+import classes.entity.Enemy;
 
 public class Stage {
     private int EnemyCount;

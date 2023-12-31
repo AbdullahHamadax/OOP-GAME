@@ -1,15 +1,13 @@
-package Classes.core.battle;
+package classes.core.battle;
 
-import Classes.core.Utility;
-import Classes.core.Utility.Color;
-import Classes.entity.Enemy;
-import Classes.entity.Player;
+import classes.core.Utility.Color;
+import classes.entity.Enemy;
+import classes.entity.Player;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Classes.core.Utility.printOptionsMenu;
-import static Classes.core.Utility.waitForEnter;
+import static classes.core.Utility.printOptionsMenu;
+import static classes.core.Utility.waitForEnter;
 
 public class FightAction extends ActionStrategy {
     @Override

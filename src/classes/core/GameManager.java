@@ -1,8 +1,8 @@
-package Classes.core;
+package classes.core;
 
-import Classes.core.battle.BattleManager;
-import Classes.entity.Enemy;
-import Classes.entity.Player;
+import classes.core.battle.BattleManager;
+import classes.entity.Enemy;
+import classes.entity.Player;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

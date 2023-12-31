@@ -1,5 +1,5 @@
-import Classes.core.Game;
-import Classes.core.SingletonScanner;
+import classes.core.Game;
+import classes.core.SingletonScanner;
 
 public class Main {
 

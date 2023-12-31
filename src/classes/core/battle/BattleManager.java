@@ -1,13 +1,13 @@
-package Classes.core.battle;
+package classes.core.battle;
 
-import Classes.entity.Character;
-import Classes.entity.Enemy;
-import Classes.entity.Player;
+import classes.entity.Character;
+import classes.entity.Enemy;
+import classes.entity.Player;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static Classes.core.Utility.*;
+import static classes.core.Utility.*;
 import static java.lang.Math.max;
 
 public class BattleManager {

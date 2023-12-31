@@ -1,4 +1,4 @@
-package Classes.core;
+package classes.core;
 
 public class Data {
     private static double gameSpeed = Game.mediumText;

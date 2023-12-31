@@ -1,7 +1,4 @@
-package Classes.core;
-
-import Classes.entity.Player;
-import Classes.entity.Character;
+package classes.core;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

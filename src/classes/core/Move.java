@@ -5,7 +5,7 @@ import classes.entity.Character;
 
 public class Move {
     private String name;
-    private int power, accuracy, type;
+    private int power, accuracy, type,crit;
 
     public Move(String name, int power, int type, int accuracy) {
         this.name = name;
@@ -23,7 +23,6 @@ public class Move {
         double randomValue = Math.random();
         if (randomValue >= (double) getAccuracy() / 100)
             return -1;
-
 
         target.updateHp(damage * -1);
         return damage;
@@ -55,5 +54,13 @@ public class Move {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getCrit() {
+        return crit;
+    }
+
+    public void setCrit(int crit) {
+        this.crit = crit;
     }
 }

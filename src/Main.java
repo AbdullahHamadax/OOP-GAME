@@ -1,5 +1,6 @@
 import classes.core.Game;
 import classes.core.SingletonScanner;
+import classes.entity.Enemy;
 
 public class Main {
 
@@ -44,5 +45,17 @@ public class Main {
 //        d2.start();
 //        ChoiceEvent e1= new ChoiceEvent("PathChoice",sc,pathChoice);
 //        e1.start();
+
+        Enemy e1 = new Enemy("Justicar (Werewolf Half-God)", 80, 40, 50, 20, 10, 5);
+        e1.setEnemyTaunts(new String[]{"Face me with honor, or crumble in disgrace!",
+                "Justice will prevail, even against the likes of you!", "I offer you a fair fight, though I doubt you'll last long."});
+
+        Enemy e2 = new Enemy("Bad Pixie (Fairy Witch)", 80, 40, 50, 20, 10, 5);
+        e2.setEnemyTaunts(new String[]{"Prepare for a dance of illusions, but can you keep up?",
+                "You might as well surrender now, facing me is like dealing with a child.", "I'll play with you a little, but don't expect mercy when it's over"});
+
+        Enemy e3 = new Enemy("Bloodthorn (Savage Cowboy Human with a Robot Heart)", 80, 40, 50, 20, 10, 5);
+        e3.setEnemyTaunts(new String[]{"Life is a pointless journey, and your end is near.",
+                "A heart of steel knows no mercy. Prepare for your inevitable demise.", "Witness the agony you so fear, for I revel in the suffering of others."});
     }
 }

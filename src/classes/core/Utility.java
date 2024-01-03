@@ -1,8 +1,12 @@
 package classes.core;
 
+import classes.entity.Enemy;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+import static classes.core.Utility.Difficulty.*;
 
 public final class Utility {
 
@@ -119,5 +123,35 @@ public final class Utility {
                 msg +
                 "\n" +
                 "=".repeat(msg.length());
+    }
+    public enum Difficulty{
+        EASY ,
+        MEDIUM,
+        HARD
+
+    }
+    public int optionDiff(Scanner sc, Difficulty o, Enemy e){
+        int option = sc.nextInt();
+        int d = 0;
+        switch (option) {
+            case 1 -> {
+                if(o == EASY){
+                    d =  e.getStr() * 10;
+                }
+            }
+            case 2 -> {
+                if(o == MEDIUM){
+                     d =  e.getStr() * 30;
+                }
+            }
+            case 3 -> {
+                if(o == HARD){
+                    d = e.getStr() * 50;
+                }
+            }
+            default -> System.err.println("wrong option");
+            
+            }
+            return d;
     }
 }

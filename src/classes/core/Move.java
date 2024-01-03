@@ -5,7 +5,10 @@ import classes.entity.Character;
 
 public class Move {
     private String name;
-    private int power, accuracy, type,crit;
+    private int power, accuracy, type;
+    public enum ElementalMovements{
+        FIRE ,EARTH, BLOOD, AIR, THUNDER, WATER
+    }
 
     public Move(String name, int power, int type, int accuracy) {
         this.name = name;
@@ -23,6 +26,7 @@ public class Move {
         double randomValue = Math.random();
         if (randomValue >= (double) getAccuracy() / 100)
             return -1;
+
 
         target.updateHp(damage * -1);
         return damage;
@@ -56,11 +60,41 @@ public class Move {
         this.type = type;
     }
 
-    public int getCrit() {
-        return crit;
-    }
-
-    public void setCrit(int crit) {
-        this.crit = crit;
+    public static int damageElementEvaluator(ElementalMovements player , ElementalMovements enemy, int baseDamage){
+        switch(player){
+            case AIR:
+            if(enemy == ElementalMovements.EARTH){
+                    return baseDamage * 10;
+                }
+                break;
+            case FIRE:
+                if(enemy == ElementalMovements.WATER){
+                    return baseDamage * 10;
+                }
+                break ;
+            case BLOOD:
+                if(enemy == ElementalMovements.THUNDER){
+                    return baseDamage * 10 ;
+                }
+                break;
+            case EARTH:
+                if(enemy == ElementalMovements.AIR){
+                    return baseDamage * 10 ;
+                }
+                break;
+            case WATER:
+                if(enemy == ElementalMovements.FIRE){
+                    return baseDamage * 10 ;
+                }
+                break;
+            case THUNDER:
+                if(enemy == ElementalMovements.BLOOD){
+                    return  baseDamage * 10 ;
+                }
+                break;
+            default:
+                System.out.print("Neutral damage");
+        }
+        return baseDamage;
     }
 }

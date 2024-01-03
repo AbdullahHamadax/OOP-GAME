@@ -68,7 +68,7 @@ public class Game {
     private void initItemsTable() {
 
     }
-    public static void  printProduct(Scanner sc,ArrayList<Item> product,Player player){
+    public static void printProduct(Scanner sc,ArrayList<Item> product,Player player){
         for(int i=0;i<product.size();i++){
             System.out.println(i+" Item : " + product.get(i));
         }
@@ -88,8 +88,6 @@ public class Game {
         }
 
     }
-
-
     private void shop(Scanner sc, Player player,ArrayList<Item> product ) {
         product = new ArrayList<>();
         product.add(new Item("Healing Elixir", "Restores a moderate amount of health", 50));

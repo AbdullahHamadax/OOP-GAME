@@ -1,5 +1,6 @@
 package classes.core;
 
+import java.io.Serializable;
 import java.util.*;
 
 public abstract class Event {

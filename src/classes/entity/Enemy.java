@@ -1,8 +1,5 @@
 package classes.entity;
 
-
-import java.util.ArrayList;
-
 public class Enemy extends Character implements Cloneable {
     private int xpValue;
     private int currencyValue;

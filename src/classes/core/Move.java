@@ -3,7 +3,9 @@ package classes.core;
 
 import classes.entity.Character;
 
-public class Move {
+import java.io.Serializable;
+
+public class Move implements Serializable {
     private String name;
     private int power, accuracy, type;
     public enum ElementalMovements{

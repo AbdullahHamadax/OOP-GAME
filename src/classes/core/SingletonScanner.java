@@ -2,7 +2,7 @@ package classes.core;
 
 import java.util.Scanner;
 
-public class SingletonScanner {
+public class SingletonScanner{
     private static SingletonScanner instance = null;
     public Scanner sc;
 

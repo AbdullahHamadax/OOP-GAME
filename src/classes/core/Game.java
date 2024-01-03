@@ -17,8 +17,8 @@ public class Game {
     String[] options = new String[]{"Slow","Fast","Medium"};
 
 
-    private final HashMap<String, Move> movesTable;
-    private final ArrayList<Item> items;
+    private final HashMap<String, Move> MOVES_TABLE;
+    private final ArrayList<Item> ITEMS;
 
     public void textSpeed(Scanner sc){
         int textSpeedChoice= printOptionsMenu(options,sc,false);
@@ -39,8 +39,8 @@ public class Game {
     }
 
     public Game() {
-        movesTable = new HashMap<>();
-        items = new ArrayList<>();
+        MOVES_TABLE = new HashMap<>();
+        ITEMS = new ArrayList<>();
     }
 
     public void initialize(Scanner sc) {

@@ -16,7 +16,6 @@ public abstract class ActionStrategy {
         String message = "Select ENEMY TO ATTACK!";
         String[] enemyNames = Arrays.stream(enemies).map(Enemy::getName).toArray(String[]::new);
 
-
         int choice = printOptionsMenu(enemyNames, sc, true, message);
         if (choice == -1)
             return -1;

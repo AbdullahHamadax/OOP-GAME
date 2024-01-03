@@ -4,13 +4,14 @@ import classes.entity.Character;
 import classes.entity.Enemy;
 import classes.entity.Player;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static classes.core.Utility.*;
 import static java.lang.Math.max;
 
-public class BattleManager {
+public class BattleManager{
     Map<String, ActionStrategy> playerActions;
     private final Scanner sc;
 
@@ -21,7 +22,7 @@ public class BattleManager {
         playerActions.put("Observe", new ObserveAction());
         playerActions.put("Surrender", new SurrenderAction());
         playerActions.put("Use item", new ItemAction());
-
+//        playerActions.put("Save", new SaveAction());
     }
 
     // will be fixed

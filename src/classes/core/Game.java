@@ -69,9 +69,9 @@ public class Game {
 
     }
     public static void  printProduct(Scanner sc,ArrayList<Item> product,Player player){
-        System.out.println("First Item : "+product.get(0) );
-        System.out.println("Second Item : "+product.get(1));
-        System.out.println("Third Item : "+product.get(2));
+        for(int i=0;i<product.size();i++){
+            System.out.println(i+" Item : " + product.get(i));
+        }
         System.out.println("Press 0 To Quit The Shop");
         System.out.println("Choose The Item You Need : ");
         int x = sc.nextInt();
@@ -86,40 +86,7 @@ public class Game {
                 System.out.print("Choose Other Item You Need ( If You Want To Exit Shop Press 0 ) : ");
                 x = sc.nextInt();
         }
-        /*
-        switch (x) {
-            case 1 -> {
-                if (player.getCurrency() >= product.get(x - 1).getItemPrice()) {
-                    player.addItem(product.get(x-1));
-                    player.setCurrency(player.getCurrency() - product.get(x - 1).getItemPrice());
-                    System.out.println(Color.GREEN.getColor() + "Successfully purchased a Healing Elixir.");
-                } else {
-                    System.err.println("Sorry! You can't buy a Healing Elixir due to insufficient funds!");
-                }
-            }
-            case 2 -> {
-                if (player.getCurrency() >= product.get(x - 1).getItemPrice()) {
-                    player.addItem(product.get(x-1));
-                    player.setCurrency(player.getCurrency() - product.get(x - 1).getItemPrice());
-                    System.out.println(Color.GREEN.getColor() + "Successfully purchased a Vitality Draught.");
-                } else {
-                    System.err.println("Sorry! You can't buy a Vitality Draught due to insufficient funds!");
-                }
-            }
-            case 3 -> {
-                if (player.getCurrency() >= product.get(x - 1).getItemPrice()) {
-                    player.addItem(product.get(x-1));
-                    player.setCurrency(player.getCurrency() - product.get(x - 1).getItemPrice());
-                    System.out.println(Color.GREEN.getColor() + "Successfully purchased a Celestial Tonic.");
-                } else {
-                    System.err.println("Sorry! You can't buy a Celestial Tonic due to insufficient funds!");
-                }
-            }
-            default ->
-                    System.err.printf("Sorry! No such item exists with number (%d) , please choose an item between (1-3)\n", x);
-        }
 
-         */
     }
 
 
@@ -129,49 +96,7 @@ public class Game {
         product.add(new Item("Vitality Draught", "Restores a small amount of health", 30));
         product.add(new Item("Celestial Tonic", "Heals a substantial amount of health", 100));
         printProduct(sc,product,player );
-    /*
-        Item healingElixir = new Item("Healing Elixir", "Restores a moderate amount of health", 50);
-        Item vitalityDraught = new Item("Vitality Draught", "Restores a small amount of health", 30);
-        Item celestialTonic = new Item("Celestial Tonic", "Heals a substantial amount of health", 100);
-        System.out.println("First Item : Healing Elixir \n Item Description : Restores a moderate amount of health \n Price : 50$ \n ********************************");
-        System.out.println("Second Item : Vitality Draught \n Item Description : Restores a small amount of health \n Price : 30$ \n ********************************");
-        System.out.println("Third Item : Celestial Tonic \n Item Description : Heals a substantial amount of health \n Price : 100$ \n ********************************");
-        System.out.println("Choose the item you need : ");
 
-        int x = in.nextInt();
-        switch (x) {
-            case 1 -> {
-                if (player.getCurrency() >= product[x-1].getitemprice()) {
-                    player.addItem(healingElixir);
-                    player.setCurrency(player.getCurrency() - 50);
-                    System.out.println(Color.GREEN.getColor() + "Successfully purchased a Healing Elixir.");
-                } else {
-                    System.err.println("Sorry! You can't buy a Healing Elixir due to insufficient funds!");
-                }
-            }
-            case 2 -> {
-                if (player.getCurrency() >= product[x-1].getitemprice()) {
-                    player.addItem(vitalityDraught);
-                    player.setCurrency(player.getCurrency() - 30);
-                    System.out.println(Color.GREEN.getColor() + "Successfully purchased a Vitality Draught.");
-                } else {
-                    System.err.println("Sorry! You can't buy a Vitality Draught due to insufficient funds!");
-                }
-            }
-            case 3 -> {
-                if (player.getCurrency() >= product[x-1].getitemprice()) {
-                    player.addItem(celestialTonic);
-                    player.setCurrency(player.getCurrency() - 100);
-                    System.out.println(Color.GREEN.getColor() + "Successfully purchased a Celestial Tonic.");
-                } else {
-                    System.err.println("Sorry! You can't buy a Celestial Tonic due to insufficient funds!");
-                }
-            }
-            default ->
-                    System.err.printf("Sorry! No such item exists with number (%d) , please choose an item between (1-3)\n", x);
-        }
-
-     */
     }
 
     private void printStats(Player player) {

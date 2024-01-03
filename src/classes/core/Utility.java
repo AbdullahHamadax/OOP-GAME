@@ -128,26 +128,19 @@ public final class Utility {
         EASY ,
         MEDIUM,
         HARD
-
     }
     public int optionDiff(Scanner sc, Difficulty o, Enemy e){
         int option = sc.nextInt();
         int d = 0;
         switch (option) {
             case 1 -> {
-                if(o == EASY){
-                    d =  e.getStr() * 10;
-                }
+                if(o == EASY){d =  e.getStr() * 10;}
             }
             case 2 -> {
-                if(o == MEDIUM){
-                     d =  e.getStr() * 30;
-                }
+                if(o == MEDIUM){d =  e.getStr() * 30;}
             }
             case 3 -> {
-                if(o == HARD){
-                    d = e.getStr() * 50;
-                }
+                if(o == HARD){d = e.getStr() * 50;}
             }
             default -> System.err.println("wrong option");
             

@@ -54,10 +54,10 @@ public class GameManager {
 
     private Player initPlayer(){
         Player player = new Player("jack", 80, 20, 10, 10, 20);
-        player.moves.add(MOVES.get("Tackle"));
-        player.moves.add(MOVES.get("Slap"));
-        player.moves.add(MOVES.get("Bite"));
-        player.moves.add(MOVES.get("Body Slam"));
+        player.MOVES.add(MOVES.get("Tackle"));
+        player.MOVES.add(MOVES.get("Slap"));
+        player.MOVES.add(MOVES.get("Bite"));
+        player.MOVES.add(MOVES.get("Body Slam"));
 
 
         return player;
@@ -82,24 +82,24 @@ public class GameManager {
     private HashMap<String, Enemy> initEnemies(){
         HashMap<String, Enemy> enemies = new HashMap<>();
         enemies.put("Fiend", new Enemy("Fiend", 80, 30, 15, 12, 10, 15));
-        enemies.get("Fiend").moves.add(MOVES.get("Tackle"));
-        enemies.get("Fiend").moves.add(MOVES.get("Slap"));
-        enemies.get("Fiend").moves.add(MOVES.get("Bite"));
+        enemies.get("Fiend").MOVES.add(MOVES.get("Tackle"));
+        enemies.get("Fiend").MOVES.add(MOVES.get("Slap"));
+        enemies.get("Fiend").MOVES.add(MOVES.get("Bite"));
 
 
         enemies.put("Ghoul", new Enemy("Ghoul", 60, 30, 25, 8, 10, 25));
-        enemies.get("Ghoul").moves.add(MOVES.get("Tackle"));
-        enemies.get("Ghoul").moves.add(MOVES.get("Headbutt"));
-        enemies.get("Ghoul").moves.add(MOVES.get("Bite"));
+        enemies.get("Ghoul").MOVES.add(MOVES.get("Tackle"));
+        enemies.get("Ghoul").MOVES.add(MOVES.get("Headbutt"));
+        enemies.get("Ghoul").MOVES.add(MOVES.get("Bite"));
 
 
         enemies.put("Slime", new Enemy("Slime", 40, 10, 6, 8, 5, 7));
-        enemies.get("Slime").moves.add(MOVES.get("Tackle"));
+        enemies.get("Slime").MOVES.add(MOVES.get("Tackle"));
 
 
         enemies.put("Wisp", new Enemy("Wisp", 55, 12, 30, 5, 18, 30));
-        enemies.get("Wisp").moves.add(MOVES.get("Bite"));
-        enemies.get("Wisp").moves.add(MOVES.get("Tackle"));
+        enemies.get("Wisp").MOVES.add(MOVES.get("Bite"));
+        enemies.get("Wisp").MOVES.add(MOVES.get("Tackle"));
 
         return enemies;
     }

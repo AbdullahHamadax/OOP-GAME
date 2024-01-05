@@ -5,8 +5,8 @@ import classes.core.Move;
 import java.util.ArrayList;
 
 public abstract class Character {
-    public final ArrayList<Move> moves;
-    public final ArrayList<Item> items;
+    public final ArrayList<Move> MOVES;
+    public final ArrayList<Item> ITEMS;
     private String name;
     private int maxHP, maxMP;
     private int hp, mp;
@@ -24,11 +24,11 @@ public abstract class Character {
         this.mp = maxMP;
         this.speed = speed;
         this.lvl = 1;
-        this.moves = new ArrayList<>();
+        this.MOVES = new ArrayList<>();
         this.battleDef = def;
         this.battleStr = str;
         this.battleSpeed = speed;
-        this.items = new ArrayList<>();
+        this.ITEMS = new ArrayList<>();
     }
 
     public void setSpeed(int speed) {
@@ -157,7 +157,7 @@ public abstract class Character {
 
     public int use(Character target, Item item) {
         item.use(this);
-        items.remove(item);
+        ITEMS.remove(item);
         return 0;
     }
 
@@ -192,7 +192,7 @@ public abstract class Character {
     }
 
     public void addItem(Item item) {
-        items.add(item);
+        ITEMS.add(item);
     }
 
 }

@@ -117,9 +117,9 @@ public class BattleManager{
         System.out.print(battleMessage);
         System.out.println();
         System.out.println("It is " + enemy.getName() + "'s turn!");
-        choice = random.nextInt(enemy.moves.size());
-        System.out.printf("%s chose to use %s\n", enemy.getName(), enemy.moves.get(choice).getName());
-        int value = enemy.use(player, enemy.moves.get(choice));
+        choice = random.nextInt(enemy.MOVES.size());
+        System.out.printf("%s chose to use %s\n", enemy.getName(), enemy.MOVES.get(choice).getName());
+        int value = enemy.use(player, enemy.MOVES.get(choice));
         if (value == -1)
             System.out.println("it was a total miss");
 

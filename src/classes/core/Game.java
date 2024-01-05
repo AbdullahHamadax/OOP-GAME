@@ -11,7 +11,7 @@ import static classes.core.Data.*;
 
 public class Game {
     private static final String WELCOME_MESSAGE = Color.GREEN.getColor()+"Greetings, adventurer! The ROGUE REALMS welcomes you!"+ Color.RESET.getColor();
-    public static final double slowText = 2, mediumText = 1, fastText = 0.4;
+    public static final double SLOW_TEXT = 2, MEDIUM_TEXT = 1, FAST_TEXT = 0.4;
 
 
     String[] options = new String[]{"Slow","Fast","Medium"};
@@ -25,15 +25,15 @@ public class Game {
         switch (textSpeedChoice){
             case 1 -> {
                 System.out.println("The text speed of the game is now on "+Color.RED.getColor()+"Slow"+Color.RESET.getColor());
-                 setGameSpeed(slowText);
+                 setGameSpeed(SLOW_TEXT);
             }
             case 2 -> {
                 System.out.println("The text speed of the game is now on "+Color.GREEN.getColor()+"Fast"+Color.RESET.getColor());
-                setGameSpeed(fastText);
+                setGameSpeed(FAST_TEXT);
             }
             case 3 -> {
                 System.out.println("The text speed of the game is now on "+Color.YELLOW.getColor()+"Medium "+Color.RESET.getColor());
-                setGameSpeed(mediumText);
+                setGameSpeed(MEDIUM_TEXT);
             }
         }
     }

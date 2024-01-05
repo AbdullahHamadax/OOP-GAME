@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import static classes.core.Utility.*;
 
-public class ObserveAction extends ActionStrategy{
+public class ObserveAction extends ActionStrategy {
     @Override
     protected boolean execute(Player player, Enemy[] enemies, Scanner sc) {
         int choice;

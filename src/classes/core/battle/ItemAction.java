@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import static classes.core.Utility.printOptionsMenu;
 
-public class ItemAction extends ActionStrategy{
+public class ItemAction extends ActionStrategy {
     @Override
     protected boolean execute(Player player, Enemy[] enemies, Scanner sc) {
         int choice;

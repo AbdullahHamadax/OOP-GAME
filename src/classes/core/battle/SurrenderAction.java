@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import static classes.core.Utility.waitForEnter;
 
-public class SurrenderAction extends ActionStrategy{
+public class SurrenderAction extends ActionStrategy {
     @Override
     protected boolean execute(Player player, Enemy[] enemies, Scanner sc) {
         player.setHp(-1);

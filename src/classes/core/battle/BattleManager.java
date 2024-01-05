@@ -3,6 +3,7 @@ package classes.core.battle;
 import classes.entity.Character;
 import classes.entity.Enemy;
 import classes.entity.Player;
+import classes.core.battle.ActionStrategy;
 
 import java.io.Serializable;
 import java.util.*;

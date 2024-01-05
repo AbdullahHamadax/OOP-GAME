@@ -15,19 +15,19 @@ import java.util.Scanner;
 
 public class GameManager {
     private Scanner sc;
-    private final String scriptPath = "C:\\Users\\Altyseer\\IdeaProjects\\LunarNight\\src\\Resources";
-    private final HashMap<String, Move> moves;
-    private final HashMap<String, Enemy> enemies;
-    private final ArrayList<Event> events;
-    private final Player player;
+    private final String SCRIPT_PATH = "C:\\Users\\Altyseer\\IdeaProjects\\LunarNight\\src\\Resources";
+    private final HashMap<String, Move> MOVES;
+    private final HashMap<String, Enemy> ENEMIES;
+    private final ArrayList<Event> EVENTS;
+    private final Player PLAYER;
 
 
     public GameManager(Scanner sc) {
         this.sc = sc;
-        moves = initMoves();
-        enemies = initEnemies();
-        player = initPlayer();
-        events = initEvents();
+        MOVES = initMoves();
+        ENEMIES = initEnemies();
+        PLAYER = initPlayer();
+        EVENTS = initEvents();
     }
 
 
@@ -54,10 +54,10 @@ public class GameManager {
 
     private Player initPlayer(){
         Player player = new Player("jack", 80, 20, 10, 10, 20);
-        player.moves.add(moves.get("Tackle"));
-        player.moves.add(moves.get("Slap"));
-        player.moves.add(moves.get("Bite"));
-        player.moves.add(moves.get("Body Slam"));
+        player.moves.add(MOVES.get("Tackle"));
+        player.moves.add(MOVES.get("Slap"));
+        player.moves.add(MOVES.get("Bite"));
+        player.moves.add(MOVES.get("Body Slam"));
 
 
         return player;
@@ -82,24 +82,24 @@ public class GameManager {
     private HashMap<String, Enemy> initEnemies(){
         HashMap<String, Enemy> enemies = new HashMap<>();
         enemies.put("Fiend", new Enemy("Fiend", 80, 30, 15, 12, 10, 15));
-        enemies.get("Fiend").moves.add(moves.get("Tackle"));
-        enemies.get("Fiend").moves.add(moves.get("Slap"));
-        enemies.get("Fiend").moves.add(moves.get("Bite"));
+        enemies.get("Fiend").moves.add(MOVES.get("Tackle"));
+        enemies.get("Fiend").moves.add(MOVES.get("Slap"));
+        enemies.get("Fiend").moves.add(MOVES.get("Bite"));
 
 
         enemies.put("Ghoul", new Enemy("Ghoul", 60, 30, 25, 8, 10, 25));
-        enemies.get("Ghoul").moves.add(moves.get("Tackle"));
-        enemies.get("Ghoul").moves.add(moves.get("Headbutt"));
-        enemies.get("Ghoul").moves.add(moves.get("Bite"));
+        enemies.get("Ghoul").moves.add(MOVES.get("Tackle"));
+        enemies.get("Ghoul").moves.add(MOVES.get("Headbutt"));
+        enemies.get("Ghoul").moves.add(MOVES.get("Bite"));
 
 
         enemies.put("Slime", new Enemy("Slime", 40, 10, 6, 8, 5, 7));
-        enemies.get("Slime").moves.add(moves.get("Tackle"));
+        enemies.get("Slime").moves.add(MOVES.get("Tackle"));
 
 
         enemies.put("Wisp", new Enemy("Wisp", 55, 12, 30, 5, 18, 30));
-        enemies.get("Wisp").moves.add(moves.get("Bite"));
-        enemies.get("Wisp").moves.add(moves.get("Tackle"));
+        enemies.get("Wisp").moves.add(MOVES.get("Bite"));
+        enemies.get("Wisp").moves.add(MOVES.get("Tackle"));
 
         return enemies;
     }
@@ -127,14 +127,14 @@ public class GameManager {
                 });
         events.add(emOrRes);
 
-        BattleEvent battleEvent1 = new BattleEvent("Fiend Fight", battleManager, player, enemies.get("Fiend"));
+        BattleEvent battleEvent1 = new BattleEvent("Fiend Fight", battleManager, PLAYER, ENEMIES.get("Fiend"));
         events.add(battleEvent1);
 
-        BattleEvent battleEvent2 = new BattleEvent("Slime Fight", battleManager, player, enemies.get("Slime"));
+        BattleEvent battleEvent2 = new BattleEvent("Slime Fight", battleManager, PLAYER, ENEMIES.get("Slime"));
         events.add(battleEvent2);
 
-        BattleEvent battleEvent3 = new BattleEvent("Big Fight", battleManager, player,
-                new Enemy[] {enemies.get("Slime"), enemies.get("Slime"), enemies.get("Ghoul"), enemies.get("Slime"),enemies.get("Slime")});
+        BattleEvent battleEvent3 = new BattleEvent("Big Fight", battleManager, PLAYER,
+                new Enemy[] {ENEMIES.get("Slime"), ENEMIES.get("Slime"), ENEMIES.get("Ghoul"), ENEMIES.get("Slime"),ENEMIES.get("Slime")});
         events.add(battleEvent2);
 
 
@@ -157,9 +157,9 @@ public class GameManager {
         }
     }
     public Player getPlayer(){
-        return player;
+        return PLAYER;
     }
     public Event getHeadEvent(){
-        return events.get(0);
+        return EVENTS.get(0);
     }
 }

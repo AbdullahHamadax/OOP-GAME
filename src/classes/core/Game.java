@@ -70,7 +70,7 @@ public class Game {
     }
     public static void printProduct(Scanner sc,ArrayList<Item> product,Player player){
         for(int i=0;i<product.size();i++){
-            System.out.println(i+" Item : " + product.get(i));
+            System.out.println((i+1)+" Item : " + product.get(i));
         }
         System.out.println("Press 0 To Quit The Shop");
         System.out.println("Choose The Item You Need : ");
@@ -120,7 +120,8 @@ public class Game {
         Player player = gameManager.getPlayer();
         gameManager.start();
 
-//        while (true) {
+//        while (true)
+//        {
 //            clearTerminal();
 //
 //            choice = printOptionsMenu(Options, sc, false);

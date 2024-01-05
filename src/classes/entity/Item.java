@@ -60,7 +60,6 @@ public class Item {
                 case "BATTLE_DEF" -> character.updatebattleDef(value);
             }
         });
-
     }
 }
 

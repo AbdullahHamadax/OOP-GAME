@@ -45,6 +45,7 @@ public class BattleManager{
 
     }
 
+
     private String printCurrentBattleStats(Player player, Enemy[] enemies, int turn) {
 
         Optional<Integer> longestName = Arrays.stream(enemies)
